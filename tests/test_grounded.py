@@ -44,6 +44,12 @@ class GroundingTests(unittest.TestCase):
     def test_tiny_quotes_do_not_count(self):
         self.assertFalse(coach.quote_in("to", FACTS["F-2"]["text"]))
 
+    def test_spelled_out_units_match_abbreviations(self):
+        r = self.check(text="Median latency went from 40 seconds to 2 seconds.", fact_id="F-2", quote="cutting median delivery latency")
+        self.assertEqual(r["status"], "grounded")
+        self.assertEqual(coach.numbers("900 milliseconds, 30 percent, 2 million"), {"900ms", "30%", "2m"})
+        self.assertNotEqual(coach.numbers("40 percent"), coach.numbers("40s"))
+
     def test_stray_numbers(self):
         self.assertEqual(coach.stray_numbers("From 40s to 2s, saving $3M and 50%.", FACTS), ["$3M", "50%"])
 
@@ -105,6 +111,19 @@ class PipelineTests(unittest.TestCase):
         self.assertTrue(all(s["status"] in ("grounded", "connective") for s in g["improved_answer"]))
         md = coach.brief_markdown(self.store, plan["id"])
         self.assertIn("Last practice", md)
+
+    def test_followup_drill_chains_and_stops(self):
+        plan = coach.make_plan(self.client, self.store, "Orbit", "SSE", self.jd)
+        g = coach.grade_answer(self.client, self.store, plan["id"], "Q1", "I led the migration of webhook delivery to Kafka on the payments platform team.")
+        ids = [g["id"]]
+        for depth in (1, 2, 3):
+            f = coach.grade_followup(self.client, self.store, ids[-1], "I don't have a measured number for that; I would check the dashboards first.")
+            self.assertEqual((f["depth"], f["root_id"], f["parent_id"]), (depth, ids[0], ids[-1]))
+            ids.append(f["id"])
+        self.assertEqual(f["follow_up"], "")
+        with self.assertRaises(ValueError):
+            coach.grade_followup(self.client, self.store, ids[-1], "one more answer that should be refused")
+        self.assertIn("Follow-up drill: 3 round(s)", coach.brief_markdown(self.store, plan["id"]))
 
     def test_import_marks_everything_draft(self):
         self.store.reset()

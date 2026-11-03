@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 import re
+import sys
 import os
 import threading
 import time
@@ -109,8 +110,15 @@ class MetaClient:
             method="POST",
         )
         try:
-            with urllib.request.urlopen(req, timeout=timeout) as resp:
-                return json.loads(resp.read())
+            for attempt in range(2):
+                with urllib.request.urlopen(req, timeout=timeout) as resp:
+                    raw = resp.read()
+                try:
+                    return json.loads(raw)
+                except json.JSONDecodeError:
+                    # Preview API occasionally answers 200 with an empty or truncated body; retry once.
+                    sys.stderr.write(f"[grounded] non-JSON {resp.status} body from {path} ({len(raw)} bytes), attempt {attempt + 1}\n")
+            raise ModelError(f"Meta API returned a non-JSON body twice ({len(raw)} bytes): {raw[:200]!r}")
         except urllib.error.HTTPError as e:
             detail = e.read().decode(errors="replace")[:800]
             raise ModelError(f"HTTP {e.code} from Meta API: {detail}") from None

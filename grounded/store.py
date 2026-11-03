@@ -106,6 +106,12 @@ class Store:
                                    (plan_id, question_id, json.dumps(body), now()))
         return cur.lastrowid
 
+    def attempt(self, attempt_id: int) -> dict | None:
+        r = self.con.execute("SELECT * FROM attempts WHERE id=?", (attempt_id,)).fetchone()
+        if not r:
+            return None
+        return {"id": r["id"], "plan_id": r["plan_id"], "question_id": r["question_id"], "created_at": r["created_at"], **json.loads(r["body"])}
+
     def attempts(self, plan_id: int) -> list[dict]:
         rows = self.con.execute("SELECT * FROM attempts WHERE plan_id=? ORDER BY id", (plan_id,))
         return [{"id": r["id"], "question_id": r["question_id"], "created_at": r["created_at"], **json.loads(r["body"])} for r in rows]

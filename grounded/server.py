@@ -104,12 +104,17 @@ def make_handler(store: Store, client):
                 if path == "/api/grade":
                     return self._send(200, coach.grade_answer(client, store, int(body["plan_id"]), body["question_id"],
                                                               body.get("answer", ""), body.get("seconds")))
+                if path == "/api/followup":
+                    return self._send(200, coach.grade_followup(client, store, int(body["attempt_id"]),
+                                                                body.get("answer", ""), body.get("seconds")))
                 return self._send(404, {"error": "unknown endpoint"})
             except BudgetExceeded as e:
                 self._send(402, {"error": str(e)})
             except ModelError as e:
                 self._send(502, {"error": str(e)})
             except (ValueError, KeyError, json.JSONDecodeError) as e:
+                if isinstance(e, json.JSONDecodeError):
+                    traceback.print_exc()
                 self._send(400, {"error": str(e)})
             except Exception as e:  # keep the server up; surface the failure
                 traceback.print_exc()

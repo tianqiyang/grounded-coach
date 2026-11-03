@@ -71,3 +71,7 @@ summary { cursor: pointer; font-weight: 600; }
 .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 10px; max-width: min(640px, 90vw); font-size: 14px; }
 .toast.err { background: var(--bad); color: #fff; }
 .cost { font-size: 12px; color: var(--muted); margin-top: 8px; }
+.turn + .turn { border-top: 1px dashed var(--line); margin-top: 16px; padding-top: 12px; }
+.probe { font-weight: 600; margin-bottom: 4px; }
+.said { color: var(--muted); font-style: italic; margin-bottom: 6px; }
+.followup textarea { background: var(--panel); }

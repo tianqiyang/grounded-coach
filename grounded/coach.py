@@ -73,11 +73,21 @@ def quote_in(quote: str | None, text: str) -> bool:
     return len(q) >= 6 and q in norm(text)
 
 
-NUM = re.compile(r"(?<![\w.])\$?\d[\d,]*(?:\.\d+)?\s*(?:%|x|k|m|ms|s|\+)?(?![\w])", re.I)
+NUM = re.compile(r"(?<![\w.])\$?\d[\d,]*(?:\.\d+)?\s*(?:%|x|k|m|b|ms|s|\+)?(?![\w])", re.I)
+# Spoken answers spell units out ("40 seconds") where résumés abbreviate ("40s"); fold both to one form.
+UNITS = [(r"milli-?seconds?|msecs?", "ms"), (r"seconds?|secs?", "s"), (r"percent|per cent", "%"),
+         (r"thousand", "k"), (r"million", "m"), (r"billion", "b"), (r"times", "x")]
+UNIT_RE = [(re.compile(r"(\d)\s*(?:" + pat + r")\b", re.I), rep) for pat, rep in UNITS]
+
+
+def spoken_units(text: str) -> str:
+    for rx, rep in UNIT_RE:
+        text = rx.sub(lambda m: m.group(1) + rep, text)
+    return text
 
 
 def numbers(text: str) -> set[str]:
-    return {re.sub(r"[\s,$]", "", m.group(0)).lower() for m in NUM.finditer(text or "")}
+    return {re.sub(r"[\s,$]", "", m.group(0)).lower() for m in NUM.finditer(spoken_units(text or ""))}
 
 
 def check_sentence(sent: dict, facts: dict[str, dict], all_facts: dict[str, dict]) -> dict:
@@ -107,7 +117,7 @@ def stray_numbers(answer: str, facts: dict[str, dict]) -> list[str]:
     """Numbers the candidate said aloud that appear in none of their confirmed facts."""
     known = set().union(*(numbers(f["text"]) for f in facts.values())) if facts else set()
     seen, out = set(), []
-    for m in NUM.finditer(answer or ""):
+    for m in NUM.finditer(spoken_units(answer or "")):
         key = re.sub(r"[\s,$]", "", m.group(0)).lower()
         if key not in known and key not in seen:
             seen.add(key)
@@ -197,32 +207,44 @@ def make_plan(client, store: Store, company: str, role: str, jd: str, research: 
     return plan
 
 
-def grade_answer(client, store: Store, plan_id: int, question_id: str, answer: str, seconds: int | None = None) -> dict:
-    plan = store.plan(plan_id)
-    if not plan:
-        raise KeyError("plan not found")
-    q = next((x for x in plan["questions"] if x["id"] == question_id), None)
-    if not q:
-        raise KeyError("question not found")
+GRADE_INSTRUCTION = (
+    "Grade the spoken answer 1-5 on structure (STAR), specificity, relevance to the question, and ownership "
+    "(I vs we). claims: split the answer into its factual claims about what the candidate did, owned or achieved "
+    "(skip admissions of not knowing, opinions and hypotheticals like 'I would...'; those are not claims); cite fact_id and a verbatim quote when a "
+    "confirmed fact supports it, otherwise fact_id null. strengths and fixes: 2-3 concrete items each. "
+    "improved_answer: a 60-90 second answer the candidate could say out loud, first person, natural spoken English, "
+    "that keeps the exact numbers, names and scope from the cited facts (specifics are the point; never soften or round them), "
+    "as sentences each citing the fact it rests on (put the verbatim quote ONLY in the quote field, never inside text); transition "
+    "sentences may use fact_id null but must contain no factual claim. follow_up: the probing question a "
+    "skeptical interviewer would ask next.")
+
+FOLLOWUP_INSTRUCTION = (
+    " This is follow-up round {depth} of {max_depth}: `question` is the interviewer's probe and `earlier_turns` is the "
+    "conversation so far. Judge relevance against the probe, not the original question. If the probe asks for something "
+    "the record does not contain, the best answer says so plainly and explains how the candidate would find out; reward "
+    "that honesty and never fill the gap with invented detail. improved_answer may be 20-40 seconds. follow_up: dig into "
+    "the weakest point of this answer{last}.")
+MAX_FOLLOWUPS = 3
+
+
+def _grade(client, store: Store, question: str, qtype: str, why: str, story: dict | None, answer: str,
+           history: list[dict] | None = None, depth: int = 0) -> dict:
+    """One model call + local verification. Shared by first answers and follow-up rounds."""
     if len(answer.strip()) < 20:
         raise ValueError("Answer is too short to grade.")
     confirmed = store.confirmed_facts()
     every = {f["id"]: f for f in store.facts()}
-    story = next((s for s in store.stories() if s["id"] == q.get("story_id")), None)
+    instruction = GRADE_INSTRUCTION
+    if depth:
+        instruction += FOLLOWUP_INSTRUCTION.format(
+            depth=depth, max_depth=MAX_FOLLOWUPS, last="; this is the last round, so return an empty string" if depth >= MAX_FOLLOWUPS else "")
     payload = {
-        "task": "grade", "question": q["question"], "question_type": q["type"], "why_asked": q["why"],
+        "task": "grade", "question": question, "question_type": qtype, "why_asked": why,
         "matched_story": story, "confirmed_facts": _facts_block(store), "candidate_answer": answer,
-        "instruction": (
-            "Grade the spoken answer 1-5 on structure (STAR), specificity, relevance to the question, and ownership "
-            "(I vs we). claims: split the answer into its factual claims; cite fact_id and a verbatim quote when a "
-            "confirmed fact supports it, otherwise fact_id null. strengths and fixes: 2-3 concrete items each. "
-            "improved_answer: a 60-90 second answer the candidate could say out loud, first person, natural spoken English, "
-            "that keeps the exact numbers, names and scope from the cited facts (specifics are the point; never soften or round them), "
-            "as sentences each citing the fact it rests on (put the verbatim quote ONLY in the quote field, never inside text); transition "
-            "sentences may use fact_id null but must contain no factual claim. follow_up: the probing question a "
-            "skeptical interviewer would ask next."),
+        "earlier_turns": history or [], "instruction": instruction,
     }
-    data, meta = client.chat_json("grade_answer", [{"role": "system", "content": SYSTEM}, {"role": "user", "content": json.dumps(payload)}],
+    data, meta = client.chat_json("grade_followup" if depth else "grade_answer",
+                                  [{"role": "system", "content": SYSTEM}, {"role": "user", "content": json.dumps(payload)}],
                                   GRADE_SCHEMA, max_out=12000, reasoning="low")
     claims = [check_sentence(c, confirmed, every) for c in data.get("claims", [])]
     improved, dropped = [], []
@@ -233,15 +255,49 @@ def grade_answer(client, store: Store, plan_id: int, question_id: str, answer: s
         checked = check_sentence(s, confirmed, every)
         (improved if checked["status"] == "grounded" else dropped).append(checked)
     grounded = sum(c["status"] == "grounded" for c in claims)
-    result = {
-        "question": q["question"], "answer": answer, "seconds": seconds,
+    return {
+        "question": question, "answer": answer, "depth": depth,
         "scores": data.get("scores", {}), "strengths": data.get("strengths", []), "fixes": data.get("fixes", []),
         "claims": claims, "grounding_rate": round(grounded / len(claims), 2) if claims else None,
         "stray_numbers": stray_numbers(answer, confirmed),
         "improved_answer": improved, "dropped_sentences": dropped,
-        "follow_up": data.get("follow_up", ""), "call": meta,
+        "follow_up": "" if depth >= MAX_FOLLOWUPS else data.get("follow_up", ""), "call": meta,
     }
+
+
+def grade_answer(client, store: Store, plan_id: int, question_id: str, answer: str, seconds: int | None = None) -> dict:
+    plan = store.plan(plan_id)
+    if not plan:
+        raise KeyError("plan not found")
+    q = next((x for x in plan["questions"] if x["id"] == question_id), None)
+    if not q:
+        raise KeyError("question not found")
+    story = next((s for s in store.stories() if s["id"] == q.get("story_id")), None)
+    result = _grade(client, store, q["question"], q["type"], q["why"], story, answer)
+    result |= {"seconds": seconds, "parent_id": None, "root_id": None}
     result["id"] = store.save_attempt(plan_id, question_id, result)
+    return result
+
+
+def grade_followup(client, store: Store, attempt_id: int, answer: str, seconds: int | None = None) -> dict:
+    """Answer the interviewer's follow-up to an earlier attempt; chains up to MAX_FOLLOWUPS rounds."""
+    parent = store.attempt(attempt_id)
+    if not parent:
+        raise KeyError("attempt not found")
+    if not parent.get("follow_up"):
+        raise ValueError("This round has no follow-up question.")
+    chain = [parent]
+    while chain[0].get("parent_id"):
+        chain.insert(0, store.attempt(chain[0]["parent_id"]))
+    root = chain[0]
+    plan = store.plan(parent["plan_id"])
+    q = next((x for x in plan["questions"] if x["id"] == parent["question_id"]), {})
+    story = next((s for s in store.stories() if s["id"] == q.get("story_id")), None)
+    history = [{"question": a["question"], "answer": a["answer"]} for a in chain]
+    result = _grade(client, store, parent["follow_up"], q.get("type", "behavioral"), "Interviewer follow-up probe.",
+                    story, answer, history, depth=parent.get("depth", 0) + 1)
+    result |= {"seconds": seconds, "parent_id": parent["id"], "root_id": root["id"]}
+    result["id"] = store.save_attempt(parent["plan_id"], parent["question_id"], result)
     return result
 
 
@@ -251,9 +307,12 @@ def brief_markdown(store: Store, plan_id: int) -> str:
     if not plan:
         raise KeyError("plan not found")
     stories = {s["id"]: s for s in store.stories()}
-    latest = {}
+    latest, probes = {}, {}
     for a in store.attempts(plan_id):
-        latest[a["question_id"]] = a
+        if a.get("depth"):
+            probes.setdefault(a["question_id"], []).append(a)
+        else:
+            latest[a["question_id"]] = a
     lines = [f"# {plan.get('role') or 'Interview'} @ {plan.get('company') or 'Company'} — prep brief", "",
              plan.get("role_summary", ""), "", "## What they weigh most"]
     for c in plan.get("competencies", []):
@@ -273,6 +332,9 @@ def brief_markdown(store: Store, plan_id: int) -> str:
                          f"grounding {int((a.get('grounding_rate') or 0) * 100)}%")
             if a.get("fixes"):
                 lines.append(f"  - Fix next: {a['fixes'][0]}")
+            drill = [p for p in probes.get(q["id"], []) if p.get("root_id") == a["id"]]
+            if drill:
+                lines.append(f"  - Follow-up drill: {len(drill)} round(s); hardest probe: “{drill[-1]['question']}”")
     gaps = [q for q in plan.get("questions", []) if q["fit"] == "none"]
     lines += ["", "## Honest gaps to prepare for"]
     lines += [f"- {q['question']} — {q.get('gap_note') or 'no matching story'}" for q in gaps] or ["- None flagged."]
