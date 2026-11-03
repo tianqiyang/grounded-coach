@@ -104,3 +104,14 @@ class OfflineClient:
                 "claims": claims, "strengths": ["Answer addresses the question directly."],
                 "fixes": ["State the result with the number from your record.", "Say what *you* did, not the team."],
                 "improved_answer": improved, "follow_up": "What would you do differently if you ran that project again?"}
+
+    def _entail(self, p):
+        verdicts = []
+        for it in p["items"]:
+            if not it["fact"]:
+                verdicts.append({"i": it["i"], "label": "no_claim", "detail": ""})
+                continue
+            extra = words(it["sentence"]) - words(it["fact"]) - {"i", "my", "that", "then", "which"}
+            label = "entailed" if len(extra) <= 3 else "adds_detail"
+            verdicts.append({"i": it["i"], "label": label, "detail": ", ".join(sorted(extra)[:4])})
+        return {"verdicts": verdicts}

@@ -254,15 +254,57 @@ def _grade(client, store: Store, question: str, qtype: str, why: str, story: dic
             continue
         checked = check_sentence(s, confirmed, every)
         (improved if checked["status"] == "grounded" else dropped).append(checked)
+    before_entailment = [s["text"] for s in improved]
+    calls = [meta]
+    if improved:
+        improved, removed, emeta = entailment_filter(client, improved, confirmed)
+        dropped += removed
+        calls.append(emeta)
     grounded = sum(c["status"] == "grounded" for c in claims)
     return {
         "question": question, "answer": answer, "depth": depth,
         "scores": data.get("scores", {}), "strengths": data.get("strengths", []), "fixes": data.get("fixes", []),
         "claims": claims, "grounding_rate": round(grounded / len(claims), 2) if claims else None,
         "stray_numbers": stray_numbers(answer, confirmed),
-        "improved_answer": improved, "dropped_sentences": dropped,
-        "follow_up": "" if depth >= MAX_FOLLOWUPS else data.get("follow_up", ""), "call": meta,
+        "improved_answer": improved, "dropped_sentences": dropped, "improved_before_entailment": before_entailment,
+        "follow_up": "" if depth >= MAX_FOLLOWUPS else data.get("follow_up", ""), "call": calls,
     }
+
+
+ENTAIL_SCHEMA = obj({"verdicts": arr(obj({"i": {"type": "integer"},
+                                           "label": {"type": "string", "enum": ["entailed", "adds_detail", "no_claim"]},
+                                           "detail": S}))})
+ENTAIL_SYSTEM = (
+    "You check one sentence at a time against the single fact printed beside it, and nothing else. "
+    "'entailed': everything the sentence asserts about the speaker's past is stated in that fact; rephrasing, first person "
+    "and spelled-out units are fine. 'adds_detail': it asserts any action, method, scope, motive, audience, outcome or degree of "
+    "ownership the fact does not state (for example 'audited every alert' when the fact only says 'rewrote the runbook'). "
+    "'no_claim': a transition, opinion or hypothetical ('I would...') that asserts nothing about the past. A sentence with "
+    "no fact can only be 'no_claim' or 'adds_detail'. In detail, name the added part in a few words.")
+
+
+def entailment_filter(client, sentences: list[dict], facts: dict[str, dict]) -> tuple[list[dict], list[dict], dict]:
+    """Second pass: each kept rewrite sentence vs only its cited fact. Catches embellishment a valid quote can't.
+
+    Deterministic checks prove the citation is real; this asks whether the sentence says more than the citation.
+    Anything not judged entailed (or claim-free) is removed, and a missing verdict counts as a failure.
+    """
+    items = [{"i": i, "sentence": s["text"], "fact": facts[s["fact_id"]]["text"] if s.get("fact_id") in facts else None}
+             for i, s in enumerate(sentences)]
+    data, meta = client.chat_json("entailment", [{"role": "system", "content": ENTAIL_SYSTEM},
+                                                 {"role": "user", "content": json.dumps({"task": "entail", "items": items})}],
+                                  ENTAIL_SCHEMA, max_out=6000, reasoning="low")
+    verdicts = {v["i"]: v for v in data.get("verdicts", []) if isinstance(v.get("i"), int)}
+    kept, removed = [], []
+    for i, s in enumerate(sentences):
+        v = verdicts.get(i, {"label": "missing", "detail": "no verdict returned"})
+        ok = v["label"] in ("entailed", "no_claim")
+        if ok:
+            kept.append(s)
+        else:
+            where = f" beyond {s['fact_id']}" if s.get("fact_id") else ""
+            removed.append({**s, "status": "unsupported", "issues": [f"adds detail{where}: {v.get('detail') or v['label']}"]})
+    return kept, removed, meta
 
 
 def grade_answer(client, store: Store, plan_id: int, question_id: str, answer: str, seconds: int | None = None) -> dict:

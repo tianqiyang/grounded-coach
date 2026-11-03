@@ -5,11 +5,12 @@ same answer with the same confirmed facts in context:
 
   A  naive       Muse Spark asked for a stronger, more impressive answer
   B  instructed  same, plus "use only the facts; never invent or inflate"
-  C  grounded    the full Grounded pipeline (grade_answer), after the verifier
+  C  verified    Grounded rewrite after the deterministic citation/number verifier only
+  D  grounded    the same rewrite after the per-sentence entailment check as well (full pipeline)
 
 Every output is scored two ways:
   - stray numbers (deterministic): sentences with a number absent from every confirmed fact.
-    C is 0 by construction, so this metric is only informative for A and B.
+    C and D are 0 by construction, so this metric is only informative for A and B.
   - blind judge (Muse Spark, separate call): each sentence labeled supported / unsupported /
     no_claim against the record. The judge never sees which condition produced the text.
 
@@ -84,7 +85,8 @@ def run_case(client, case: dict, workdir: Path) -> dict:
                                           "fit": "strong" if case["story_id"] else "none", "gap_note": ""}]})
     outputs = {"A": rewrite(client, NAIVE, facts, case), "B": rewrite(client, INSTRUCTED, facts, case)}
     graded = coach.grade_answer(client, store, pid, "Q1", case["answer"])
-    outputs["C"] = [s["text"] for s in graded["improved_answer"]]
+    outputs["C"] = graded["improved_before_entailment"]
+    outputs["D"] = [s["text"] for s in graded["improved_answer"]]
     store.con.close()
     # Shuffle judge order so position never correlates with condition.
     order = list(outputs)
@@ -102,7 +104,7 @@ def run_case(client, case: dict, workdir: Path) -> dict:
 
 def summarize(results: list[dict]) -> dict:
     out = {}
-    for cond in ("A", "B", "C"):
+    for cond in ("A", "B", "C", "D"):
         rows = [s for r in results for s in r["conditions"][cond]["sentences"]]
         claims = [s for s in rows if s["judge"] != "no_claim"]
         unsup = [s for s in rows if s["judge"] == "unsupported"]
@@ -113,35 +115,39 @@ def summarize(results: list[dict]) -> dict:
             "unsupported_rate": round(len(unsup) / len(claims), 3) if claims else 0.0,
             "outputs_with_any_unsupported": bad_outputs,
             "stray_number_sentences": sum(bool(s["stray_numbers"]) for s in rows),
+            # Usefulness guard: deleting sentences trivially lowers fabrication, so count near-empty answers.
+            "outputs_under_3_sentences": sum(len(r["conditions"][cond]["sentences"]) < 3 for r in results),
             "by_kind": {k: sum(any(s["judge"] == "unsupported" for s in r["conditions"][cond]["sentences"])
                                for r in results if r["kind"] == k)
                         for k in sorted({r["kind"] for r in results})},
         }
-    out["C"]["verifier_dropped_sentences"] = sum(r["verifier_dropped"] for r in results)
+    out["D"]["removed_by_pipeline"] = sum(r["verifier_dropped"] for r in results)
     return out
 
 
 def markdown(summary: dict, results: list[dict], meta: dict) -> str:
-    names = {"A": "Naive prompt", "B": "Instructed prompt", "C": "Grounded (verified)"}
+    names = {"A": "Naive prompt", "B": "Instructed prompt", "C": "Grounded, verifier only", "D": "Grounded + entailment"}
     kinds = {k: sum(r["kind"] == k for r in results) for k in sorted({r["kind"] for r in results})}
     lines = [f"# Fabrication eval: {meta['date']}", "",
              f"{len(results)} fictional answers ({', '.join(f'{n} {k}' for k, n in kinds.items())}), "
              f"model `{meta['model']}`, eval cost ${meta['cost_usd']:.2f}, {meta['minutes']:.1f} min.", "",
-             "| Condition | Claim sentences | Unsupported (judge) | Rate | Outputs with any unsupported | Sentences with stray numbers |",
-             "|---|---|---|---|---|---|"]
-    for c in ("A", "B", "C"):
+             "| Condition | Claim sentences | Unsupported (judge) | Rate | Outputs with any unsupported | Sentences with stray numbers | Outputs under 3 sentences |",
+             "|---|---|---|---|---|---|---|"]
+    for c in ("A", "B", "C", "D"):
         s = summary[c]
         lines.append(f"| {names[c]} | {s['claim_sentences']} | {s['unsupported_sentences']} | {s['unsupported_rate']:.0%} | "
-                     f"{s['outputs_with_any_unsupported']} / {s['outputs']} | {s['stray_number_sentences']} |")
+                     f"{s['outputs_with_any_unsupported']} / {s['outputs']} | {s['stray_number_sentences']} | {s['outputs_under_3_sentences']} |")
     lines += ["", "Outputs with any unsupported sentence, by how the input answer was written:", "",
               "| Condition | " + " | ".join(kinds) + " |", "|---|" + "---|" * len(kinds)]
-    for c in ("A", "B", "C"):
+    for c in ("A", "B", "C", "D"):
         lines.append(f"| {names[c]} | " + " | ".join(f"{summary[c]['by_kind'].get(k, 0)} / {n}" for k, n in kinds.items()) + " |")
-    lines += ["", f"The Grounded verifier removed {summary['C']['verifier_dropped_sentences']} model-written sentences "
-              "before they reached the suggested answer.", "",
+    lines += ["", f"The Grounded pipeline removed {summary['D']['removed_by_pipeline']} model-written sentences "
+              "(verifier + entailment) before they reached the suggested answer. C and D are the same rewrite before and "
+              "after the entailment pass, so their difference isolates that pass.", "",
               "**Method notes.** The judge is Muse Spark in a separate call. It never sees the condition label, and sentence "
               "order across conditions is shuffled per case. A sentence the judge skips counts as unsupported. The "
-              "stray-number column is deterministic; Grounded's verifier enforces it, so C is 0 by construction. "
+              "stray-number column is deterministic; Grounded's verifier enforces it, so C and D are 0 by construction. The entailment checker sees only the cited fact; the judge sees the whole record "
+              "and uses a different prompt, but both are Muse Spark. "
               "Same model, same facts, same answers across conditions. All data is fictional.", ""]
     return "\n".join(lines)
 

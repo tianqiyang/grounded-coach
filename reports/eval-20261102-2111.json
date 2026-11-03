@@ -1,0 +1,3301 @@
+{
+ "meta": {
+  "date": "2026-11-02 21:11",
+  "model": "muse-spark-1.3",
+  "cost_usd": 1.1813449999999999,
+  "minutes": 7.4116544683774315,
+  "failures": []
+ },
+ "summary": {
+  "A": {
+   "outputs": 20,
+   "sentences": 169,
+   "claim_sentences": 146,
+   "unsupported_sentences": 87,
+   "unsupported_rate": 0.596,
+   "outputs_with_any_unsupported": 18,
+   "stray_number_sentences": 1,
+   "outputs_under_3_sentences": 0,
+   "by_kind": {
+    "honest": 4,
+    "inflated": 6,
+    "vague": 8
+   }
+  },
+  "B": {
+   "outputs": 20,
+   "sentences": 159,
+   "claim_sentences": 142,
+   "unsupported_sentences": 15,
+   "unsupported_rate": 0.106,
+   "outputs_with_any_unsupported": 7,
+   "stray_number_sentences": 0,
+   "outputs_under_3_sentences": 0,
+   "by_kind": {
+    "honest": 0,
+    "inflated": 3,
+    "vague": 4
+   }
+  },
+  "C": {
+   "outputs": 20,
+   "sentences": 121,
+   "claim_sentences": 79,
+   "unsupported_sentences": 3,
+   "unsupported_rate": 0.038,
+   "outputs_with_any_unsupported": 3,
+   "stray_number_sentences": 0,
+   "outputs_under_3_sentences": 0,
+   "by_kind": {
+    "honest": 0,
+    "inflated": 2,
+    "vague": 1
+   }
+  },
+  "D": {
+   "outputs": 20,
+   "sentences": 96,
+   "claim_sentences": 64,
+   "unsupported_sentences": 0,
+   "unsupported_rate": 0.0,
+   "outputs_with_any_unsupported": 0,
+   "stray_number_sentences": 0,
+   "outputs_under_3_sentences": 0,
+   "by_kind": {
+    "honest": 0,
+    "inflated": 0,
+    "vague": 0
+   },
+   "removed_by_pipeline": 25
+  }
+ },
+ "results": [
+  {
+   "id": "E01",
+   "kind": "honest",
+   "question": "Tell me about a technical project you led end to end.",
+   "answer": "At Lumen Pay I led the migration of webhook delivery from a cron poller to an event queue on Kafka. Median delivery latency went from 40 seconds to 2 seconds.",
+   "verifier_dropped": 2,
+   "conditions": {
+    "D": {
+     "sentences": [
+      {
+       "text": "I was a Senior Backend Engineer at Lumen Pay on the payments platform team.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Our webhook delivery was still running off scheduled polling, so I took on moving it over to Kafka.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "After the change, our median delivery time dropped from 40 seconds down to 2 seconds.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That result is what showed me the value of owning the outcome, not just the code.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "A": {
+     "sentences": [
+      {
+       "text": "As a Senior Backend Engineer at Lumen Pay, I led an end-to-end project on our six-person payments platform team to fix webhook delivery.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Our merchants depended on those webhooks for real-time payment updates, but we were still on a cron poller.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That meant median delivery latency was 40 seconds, which felt slow and unreliable to customers waiting on payment confirmation.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I scoped the problem, proposed moving to an event queue on Kafka, and owned the plan from design through rollout.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I broke the work into clear milestones, coordinated the implementation across the team, and kept us focused on safe delivery without disrupting live payments traffic.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I also owned testing and monitoring so we could prove the new system was stable under real load before fully cutting over.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The result was a drop in median delivery latency from 40 seconds to 2 seconds.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "It made the product feel truly real-time for merchants and gave us a much more scalable foundation for the payments platform going forward.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "C": {
+     "sentences": [
+      {
+       "text": "I was a Senior Backend Engineer at Lumen Pay on the payments platform team.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Let me walk you through one project I owned from start to finish.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "Our webhook delivery was still running off scheduled polling, so I took on moving it over to Kafka.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I led that migration work end to end for the delivery path.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "After the change, our median delivery time dropped from 40 seconds down to 2 seconds.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That result is what showed me the value of owning the outcome, not just the code.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "B": {
+     "sentences": [
+      {
+       "text": "Thanks for asking \u2014 the best example is the webhook delivery migration I led at Lumen Pay.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "At the time I was a Senior Backend Engineer on the payments platform team of six, and I was there from 2021 to 2025.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I'll start with where things stood.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "We were delivering webhooks using a cron poller, and our median delivery latency was 40 seconds.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I led the project end to end to move that to an event queue on Kafka.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I stayed with it all the way through rollout to production.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "After the migration, our median delivery latency was 2 seconds.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "So in short, I took webhook delivery from a cron poller at 40 seconds median to an event queue on Kafka at 2 seconds median.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That's the end-to-end project I'm most proud of from my time at Lumen Pay.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "E02",
+   "kind": "vague",
+   "question": "Tell me about a technical project you led end to end.",
+   "answer": "I worked on making our webhooks a lot faster by moving them onto Kafka. It was a big improvement and merchants were happy.",
+   "verifier_dropped": 0,
+   "conditions": {
+    "D": {
+     "sentences": [
+      {
+       "text": "I was a Senior Backend Engineer at Lumen Pay on our six-person payments platform team.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "My task was to lead moving webhook delivery off our cron poller.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I led the shift to an event queue built on Kafka.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "After the cutover, our median delivery latency dropped from 40 seconds down to 2 seconds.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That is the full arc in brief.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "A": {
+     "sentences": [
+      {
+       "text": "At Lumen Pay on our six-person payments platform team, I led the end-to-end rebuild of our webhook delivery system.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Merchants depended on those webhooks for order fulfillment, but we were running on a cron poller with 40-second median latency and huge backlogs during peak traffic.",
+       "judge": "unsupported",
+       "stray_numbers": [
+        "40"
+       ]
+      },
+      {
+       "text": "I scoped the problem, wrote the design doc, and proposed moving to an event-driven queue on Kafka with retries and dead-letter handling.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I broke the work into milestones, built the core producer and consumer myself, and coordinated teammates on the migration tooling and observability.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "We validated it by shadowing production traffic to confirm ordering and durability, then rolled it out merchant by merchant behind a feature flag so we could roll back instantly.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That cut median delivery latency from 40 seconds to 2 seconds and eliminated the peak-hour backlog completely.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Merchants noticed immediately, delayed-webhook complaints dropped off, and we could handle growing volume without extra on-call load.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "For me it was a full ownership story from problem definition and design through build, safe rollout, and measuring impact.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "C": {
+     "sentences": [
+      {
+       "text": "I was a Senior Backend Engineer at Lumen Pay on our six-person payments platform team.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "My task was to lead moving webhook delivery off our cron poller.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I led the shift to an event queue built on Kafka.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "After the cutover, our median delivery latency dropped from 40 seconds down to 2 seconds.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That is the full arc in brief.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "B": {
+     "sentences": [
+      {
+       "text": "At Lumen Pay from 2021 to 2025, I worked as a Senior Backend Engineer on the six-person payments platform team.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The technical project I led end to end there was the migration of our webhook delivery system.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "When I took it on, I was responsible for a system that relied on a cron poller.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "At that time, our median delivery latency was 40 seconds.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I led the work to move us off that cron poller and onto an event queue on Kafka.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I owned that migration end to end for the payments platform team.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Once we completed the cutover, I had helped bring our median delivery latency from 40 seconds down to 2 seconds.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "For me, that project was a clear example of end-to-end ownership on core payments infrastructure.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "E03",
+   "kind": "inflated",
+   "question": "Tell me about a technical project you led end to end.",
+   "answer": "I single-handedly re-architected webhooks onto Kafka for 10 million merchants. Latency dropped 95% and we saved about $1M in infrastructure.",
+   "verifier_dropped": 2,
+   "conditions": {
+    "A": {
+     "sentences": [
+      {
+       "text": "At Lumen Pay, I was a Senior Backend Engineer on our six-person payments platform team.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The end-to-end project I'm most proud of was leading our webhook delivery migration.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "At the time we were polling with cron, so median delivery latency was stuck at around 40 seconds and merchants were complaining about stale payment updates.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I put together the proposal to move to an event-driven queue on Kafka and drove the design, build, and rollout.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I started with the design doc covering topics and partitioning, retry policy with backoff, dead-letter handling, and how we'd preserve ordering.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Then I implemented the producer and consumer, added dashboards and alerts for consumer lag and delivery success, and set up replay tooling for failures.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "We rolled it out safely behind a feature flag with shadow traffic, then cut over incrementally while validating behavior in production.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The result was cutting median delivery latency from 40 seconds to 2 seconds.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "It made webhooks feel real-time for our customers and gave the team a much more scalable and observable foundation to build on.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "D": {
+     "sentences": [
+      {
+       "text": "I was working at Lumen Pay as a senior backend engineer with five other engineers on payments.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "My task was to take charge of shifting it onto an event queue built on Kafka.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "After I drove that migration, median delivery went from 40s to 2s.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That is the result I am most proud of from that work.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "C": {
+     "sentences": [
+      {
+       "text": "I was working at Lumen Pay as a senior backend engineer with five other engineers on payments.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Let me walk you through one project I led there.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "The issue was our webhook delivery was still on a cron poller and was far too slow for merchants.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "My task was to take charge of shifting it onto an event queue built on Kafka.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "After I drove that migration, median delivery went from 40s to 2s.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That is the result I am most proud of from that work.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "B": {
+     "sentences": [
+      {
+       "text": "I was a Senior Backend Engineer at Lumen Pay from 2021 to 2025, on our six-person payments platform team.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The project I led end to end was the migration of our webhook delivery from a cron poller to an event queue on Kafka.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Before the change, we were polling for webhooks and our median delivery latency was 40 seconds.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I led the work to move us off that cron poller and onto Kafka for event-driven delivery.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I saw it through from our old polling approach to the new queue-based system in production.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "After the migration, our median delivery latency went from 40 seconds to 2 seconds.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That change made webhook delivery much faster on the payments platform I was responsible for.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "It is the best example from Lumen Pay of me leading a technical project end to end.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "E04",
+   "kind": "honest",
+   "question": "Tell me about a time you disagreed with a product decision.",
+   "answer": "Duplicate refunds had reached 0.3% of requests and the product lead wanted to ship the new refunds flow anyway. I wrote a risk write-up and proposed a two-week delay to add idempotency keys, and the VP approved it.",
+   "verifier_dropped": 0,
+   "conditions": {
+    "A": {
+     "sentences": [
+      {
+       "text": "At Lumen Pay I was a Senior Backend Engineer on our six-person payments platform team, and we were about to launch a new refunds flow.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Our product lead wanted to ship on schedule even though duplicate refunds had reached 0.3% of requests, which in fintech is real money and real trust on the line.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I disagreed, because I knew once that volume scaled, support tickets and reconciliation pain would be far more expensive than a short delay.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Instead of just pushing back in a meeting, I wrote a one-page risk write-up quantifying the duplicate rate, the projected financial exposure, and customer impact.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I then proposed a concrete alternative: a two-week delay to add idempotency keys to the refunds API.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I walked the product lead through it first so he felt heard, and then we took it to the VP together.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The VP approved the delay, and I led the implementation of the idempotency design.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "We shipped two weeks later with no duplicate-refund issues, and that experience actually improved how our team weighed speed versus safety on payments decisions going forward.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "B": {
+     "sentences": [
+      {
+       "text": "A good example of disagreeing with a product decision came when I was a Senior Backend Engineer at Lumen Pay on our six-person payments platform team.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "We were getting ready to ship a new refunds flow.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "At the time, duplicate refunds had already reached 0.3% of requests.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The product lead wanted to ship the new refunds flow anyway.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I disagreed with shipping without idempotency protection in place.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I felt strongly that we should not scale a flow that we knew was already creating duplicates.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "So I wrote a risk write-up explaining my concerns.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "In it, I proposed a two-week delay to design and add idempotency keys for the refunds API.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I brought that proposal to the product lead and VP, and the VP approved the delay.",
+       "judge": "supported",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "C": {
+     "sentences": [
+      {
+       "text": "Sure, here's an example.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "I was a Senior Backend Engineer at Lumen Pay on the payments platform team of 6 engineers.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "We had a refunds issue where duplicate refunds reached 0.3% of requests.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The product lead wanted to ship the refunds flow without idempotency, and I disagreed with that decision.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Let me walk through what I did.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "I wrote a risk write-up and proposed a two-week delay.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I designed idempotency keys for the refunds API.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The VP approved the delay.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That is the short version.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "D": {
+     "sentences": [
+      {
+       "text": "Sure, here's an example.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "I was a Senior Backend Engineer at Lumen Pay on the payments platform team of 6 engineers.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "We had a refunds issue where duplicate refunds reached 0.3% of requests.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The product lead wanted to ship the refunds flow without idempotency, and I disagreed with that decision.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Let me walk through what I did.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "I wrote a risk write-up and proposed a two-week delay.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I designed idempotency keys for the refunds API.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The VP approved the delay.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That is the short version.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "E05",
+   "kind": "vague",
+   "question": "Tell me about a time you disagreed with a product decision.",
+   "answer": "There was a refunds launch I wasn't comfortable with, so I raised concerns and we ended up delaying it a bit to make it safer.",
+   "verifier_dropped": 4,
+   "conditions": {
+    "B": {
+     "sentences": [
+      {
+       "text": "At Lumen Pay, I was a Senior Backend Engineer on our six-person payments platform team.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Ahead of the refunds API launch, I disagreed with our product lead about shipping without idempotency support.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "He wanted to hold the launch date, but I was concerned because I had seen duplicate refunds reach 0.3% of requests.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "For a payments API, I felt that level of duplicate-refund risk was not acceptable to ship.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "I wrote up the risk for him and leadership, laying out the customer and business impact.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I proposed a two-week delay specifically so I could design idempotency keys for the refunds API.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The VP reviewed my write-up and approved the delay.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "We held the launch, and I led building the idempotency approach for refunds.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "D": {
+     "sentences": [
+      {
+       "text": "Happy to share one that comes to mind from my payments work.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "I was a senior backend engineer at Lumen Pay in fintech, working on our payments platform team.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The product lead wanted to launch without an idempotency safeguard, and I disagreed with shipping it that way.",
+       "judge": "supported",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "A": {
+     "sentences": [
+      {
+       "text": "At Lumen Pay, I was the senior backend engineer on our six-person payments platform team when we were getting ready to launch a new refunds API.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Our product lead wanted to ship on the original date without idempotency support to meet a commitment to a large merchant.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I disagreed because our load tests were already showing duplicate requests on about 0.3% of calls, which in refunds means literally sending money twice.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Instead of just pushing back in a meeting, I wrote a short risk doc quantifying the exposure in dollars per week and customer support tickets if we shipped as-is.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I proposed a two-week delay to add idempotency keys end-to-end, with a clear plan for the API contract, database constraints, and retry logic.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I walked the product lead through it one-on-one first so it didn't feel like an ambush, and we debated the tradeoff between speed and financial risk.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "He was still worried about the merchant deadline, so we took both options to the VP with my data and his timeline concern.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The VP approved the two-week delay, and I led the implementation during that window.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "We launched with idempotency keys and duplicate refunds dropped to effectively zero, and that merchant actually expanded with us the next quarter because reliability was so strong.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "It taught me that disagreeing well means bringing data, a concrete alternative, and respect for the business pressure behind the product decision.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "C": {
+     "sentences": [
+      {
+       "text": "Happy to share one that comes to mind from my payments work.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "I was a senior backend engineer at Lumen Pay in fintech, working on our payments platform team.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "We were about to ship a new refunds flow at a point when duplicates had already reached three-tenths of a percent of requests.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The product lead wanted to launch without an idempotency safeguard, and I disagreed with shipping it that way.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "My view was we needed idempotency keys built for the refunds API before we scaled up volume.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "So I wrote up the risk in plain terms and proposed we hold the launch for two weeks to add the protection.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The VP reviewed it and approved the pause, which is how we avoided shipping the riskier version.",
+       "judge": "supported",
+       "stray_numbers": []
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "E06",
+   "kind": "inflated",
+   "question": "Tell me about a time you disagreed with a product decision.",
+   "answer": "I stopped a launch that would have lost us $2M. I convinced the CEO to pause for a month, and after my fix we had zero duplicate refunds ever again.",
+   "verifier_dropped": 3,
+   "conditions": {
+    "A": {
+     "sentences": [
+      {
+       "text": "At Lumen Pay, I was a Senior Backend Engineer on our six-person payments platform team.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "We were getting ready to ship a new refunds API, and our product lead wanted to launch without idempotency support in order to hit the date.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I disagreed because we were already seeing duplicate refunds on about 0.3% of requests, and I knew client retries would make that much worse once we scaled.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Instead of just debating it in a meeting, I wrote up a short risk doc outlining the customer impact and the support burden, and I proposed a two-week delay to build idempotency keys properly.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I brought that to the product lead and our VP, and I framed it as protecting the launch rather than slowing it down.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The VP approved the two-week delay, which gave us the space to do it right.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I then designed and implemented idempotency keys for the refunds API.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "We shipped a little later but with a much safer API, and it actually strengthened my relationship with product because the disagreement was grounded in data and customer risk.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "B": {
+     "sentences": [
+      {
+       "text": "As a Senior Backend Engineer at Lumen Pay on our six-person payments platform team, I disagreed with our product lead about shipping the refunds API without idempotency.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "At the time we were seeing duplicate refunds reach 0.3% of requests, so I was concerned about launching without protection in place.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I put together a short risk write-up to make the tradeoff explicit for the team.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "In it, I proposed a two-week delay so we could add idempotency to the refunds API before launch.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I reviewed it directly with the product lead to explain why I thought the delay was worth it.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "We still had different views on the timeline, so we brought the write-up to the VP for a decision.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The VP approved the two-week delay.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I then designed idempotency keys for the refunds API so retries could be handled safely.",
+       "judge": "supported",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "C": {
+     "sentences": [
+      {
+       "text": "Here is the disagreement I would point to.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "I was a Senior Backend Engineer at Lumen Pay, on the payments platform team of 6 engineers.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "We were preparing a refunds API change while duplicate refunds had reached 0.3% of requests.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I disagreed with the product lead on shipping refunds without idempotency.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I wrote a risk write-up and proposed a two-week delay to make the risk visible and propose a safer path.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "My proposal was to design idempotency keys for the refunds API before we shipped.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The VP approved that two-week delay.",
+       "judge": "supported",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "D": {
+     "sentences": [
+      {
+       "text": "Here is the disagreement I would point to.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "I was a Senior Backend Engineer at Lumen Pay, on the payments platform team of 6 engineers.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I disagreed with the product lead on shipping refunds without idempotency.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The VP approved that two-week delay.",
+       "judge": "supported",
+       "stray_numbers": []
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "E07",
+   "kind": "honest",
+   "question": "How have you improved operational health on a team?",
+   "answer": "I owned the on-call runbook rewrite on my team. Over one quarter, pages per week dropped from 14 to 5.",
+   "verifier_dropped": 0,
+   "conditions": {
+    "D": {
+     "sentences": [
+      {
+       "text": "Here's a concrete example:",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "I was a Senior Backend Engineer at Lumen Pay on the payments platform team of 6 engineers.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I owned the on-call runbook rewrite.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "After that work, pages per week dropped from 14 to 5 over one quarter.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Happy to go deeper on any part.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "C": {
+     "sentences": [
+      {
+       "text": "Here's a concrete example:",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "I was a Senior Backend Engineer at Lumen Pay on the payments platform team of 6 engineers.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I owned the on-call runbook rewrite.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "After that work, pages per week dropped from 14 to 5 over one quarter.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Happy to go deeper on any part.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "B": {
+     "sentences": [
+      {
+       "text": "I was a Senior Backend Engineer at Lumen Pay from 2021 to 2025 on our six-person payments platform team.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The clearest way I improved operational health there was owning the on-call runbook rewrite.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Over one quarter, we went from 14 pages per week to 5 pages per week.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I also tried to reduce operational load by preventing repeat issues, including designing idempotency keys for the refunds API after duplicate refunds reached 0.3% of requests.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Earlier as a Backend Engineer at Northwind Logistics, I wrote the postmortem for a 3-hour tracking outage caused by a schema migration lock.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "For me, improving operational health has meant combining clearer on-call response with learning from incidents.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "A": {
+     "sentences": [
+      {
+       "text": "At Lumen Pay, I was a Senior Backend Engineer on our six-person payments platform team, where on-call pain was becoming a real drag on velocity.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "We were getting around 14 pages a week, most of them noisy or unactionable, with stale steps, broken dashboard links, and no clear severity levels.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I volunteered to own a full rewrite of our on-call runbook because I was tired of getting paged for problems we already knew how to solve.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "First, I audited a quarter of past incidents to separate true wake-someone-up emergencies from alerts we could tune, downgrade, or auto-remediate.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Then I rebuilt the runbook from scratch with clear severity definitions, step-by-step diagnosis commands, linked dashboards, and escalation paths.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I also added a tight feedback loop where the on-call engineer updated the page after every incident, which I reviewed with the team weekly.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Within one quarter, pages per week dropped from 14 to 5, and our time to acknowledge and resolve improved because people weren't guessing anymore.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "It freed the team up for real project work instead of constant firefighting, and it made on-call much more manageable, especially for the junior engineers I was mentoring.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "E08",
+   "kind": "vague",
+   "question": "How have you improved operational health on a team?",
+   "answer": "Our on-call was pretty painful so I cleaned up the runbooks and things got much quieter after that.",
+   "verifier_dropped": 2,
+   "conditions": {
+    "B": {
+     "sentences": [
+      {
+       "text": "At Lumen Pay, I was a Senior Backend Engineer on the six-person payments platform team from 2021 to 2025.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I owned our on-call runbook rewrite because our on-call was painful.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "When I started, I was seeing 14 pages per week.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Over one quarter after my rewrite, I saw pages per week drop from 14 to 5.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I also improved reliability when I designed idempotency keys for the refunds API after I saw duplicate refunds reach 0.3% of requests.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Earlier as a Backend Engineer at Northwind Logistics from 2018 to 2021, I built shipment-tracking APIs in Python and PostgreSQL.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I wrote the postmortem for a 3-hour tracking outage caused by a schema migration lock.",
+       "judge": "supported",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "A": {
+     "sentences": [
+      {
+       "text": "At Lumen Pay I was a Senior Backend Engineer on our six-person payments platform team, and our on-call was pretty painful.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "We were averaging around 14 pages a week, and half the time the runbook was out of date so you'd be digging through Slack and dashboards at 2 a.m.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I volunteered to own operational health for the quarter and make on-call sustainable.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I talked to the team about our noisiest and scariest pages, then rewrote our on-call runbook from scratch.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "For each alert I added clear symptoms, how to confirm customer impact, step-by-step diagnosis, and safe remediation commands.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I also made it part of our culture that every incident had to leave the runbook better than it found it.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Within one quarter, our pages dropped from 14 a week to 5 a week.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "It turned on-call from something people dreaded into something boring, which is exactly what you want for a payments platform.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "C": {
+     "sentences": [
+      {
+       "text": "Let me walk through the on-call issue I owned.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "At the time I was a Senior Backend Engineer at Lumen Pay on a payments platform team of 6 engineers.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Our pages were constant, so I took ownership of rewriting the on-call runbook.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I want to be clear about what I can and cannot speak to from the record.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "After that work, pages per week went from 14 to 5 over one quarter.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That is the result I will stand behind.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "D": {
+     "sentences": [
+      {
+       "text": "At the time I was a Senior Backend Engineer at Lumen Pay on a payments platform team of 6 engineers.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I want to be clear about what I can and cannot speak to from the record.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "After that work, pages per week went from 14 to 5 over one quarter.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That is the result I will stand behind.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "E09",
+   "kind": "inflated",
+   "question": "How have you improved operational health on a team?",
+   "answer": "I built an automated alerting platform that cut pages by 90% across the whole engineering org of 200 people.",
+   "verifier_dropped": 1,
+   "conditions": {
+    "C": {
+     "sentences": [
+      {
+       "text": "Here's what actually happened on on-call:",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "I was a Senior Backend Engineer at Lumen Pay on the payments platform team of 6 engineers.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "We were getting hit with 14 pages per week.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I owned the on-call runbook rewrite.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I clarified the triage steps and escalation paths, and then pages per week dropped from 14 to 5 over one quarter.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "A": {
+     "sentences": [
+      {
+       "text": "At Lumen Pay, I owned operational health for our six-person payments platform team.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "When I took over on-call, we were getting around 14 pages a week, and most of them were noisy, unactionable, or missing clear next steps.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I started by auditing every page from the prior quarter and bucketing them into actionable, noisy, or gaps where we had no alert at all.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I then rewrote our on-call runbook from scratch so every alert had clear triage steps, dashboard links, and escalation paths.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "In parallel, I tuned thresholds and deduplicated alerts so we weren't getting woken up multiple times for the same underlying issue.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Over one quarter, that brought us from 14 pages a week down to 5, which made on-call sustainable and freed us up for real engineering work.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "More importantly, I pushed us to fix root causes, not just symptoms, which is why I designed idempotency keys for our refunds API after we saw duplicate refunds.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That mindset came from my time at Northwind Logistics, where I wrote the postmortem for a 3-hour tracking outage caused by a schema migration lock.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Since then, my approach has been to measure the pain, document the fix, and leave the team with fewer pages and a clearer playbook than I found.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "D": {
+     "sentences": [
+      {
+       "text": "Here's what actually happened on on-call:",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "I was a Senior Backend Engineer at Lumen Pay on the payments platform team of 6 engineers.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "We were getting hit with 14 pages per week.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I owned the on-call runbook rewrite.",
+       "judge": "supported",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "B": {
+     "sentences": [
+      {
+       "text": "At Lumen Pay, I was a Senior Backend Engineer on the payments platform team of 6 engineers.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Our operational health issue was on-call load, at 14 pages per week.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I owned the on-call runbook rewrite to address it.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Over one quarter, pages per week dropped from 14 to 5.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I brought a similar focus on reliability to my work at Northwind Logistics as a Backend Engineer building shipment-tracking APIs in Python and PostgreSQL.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "There I wrote the postmortem for a 3-hour tracking outage caused by a schema migration lock.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Back at Lumen Pay, I designed idempotency keys for the refunds API after duplicate refunds reached 0.3% of requests.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I also mentored 2 junior engineers through their first production launches.",
+       "judge": "supported",
+       "stray_numbers": []
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "E10",
+   "kind": "honest",
+   "question": "Describe a performance problem you solved.",
+   "answer": "At Northwind Logistics I added read replicas and query indexes to our tracking API, and p95 latency went from 900 milliseconds to 180.",
+   "verifier_dropped": 1,
+   "conditions": {
+    "A": {
+     "sentences": [
+      {
+       "text": "At Northwind Logistics, I was a Backend Engineer owning our shipment-tracking APIs built in Python and PostgreSQL.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Customers relied on us for real-time delivery tracking, but our p95 latency had crept up to 900 milliseconds and complaints were spiking during peak hours.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I dug into our slow query logs and database metrics, and I found two root causes: all that heavy read traffic was hitting our primary database, and our most common tracking lookups were missing indexes.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I put together a two-part plan to fix it: add read replicas to offload reads from the primary, and add targeted query indexes for our hottest endpoints.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I shipped the indexes first for a fast win, then carefully rolled out replica routing with testing to make sure we wouldn't introduce stale-read issues.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The impact was immediate \u2014 we brought p95 latency down from 900 milliseconds to 180 milliseconds.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That transformed the tracking experience for customers and drivers at peak, and it gave our primary database the headroom we needed to scale.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "B": {
+     "sentences": [
+      {
+       "text": "Thanks for asking, I want to describe a performance problem I solved as a Backend Engineer at Northwind Logistics.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I was there from 2018 to 2021 building shipment-tracking APIs in Python and PostgreSQL.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The performance problem I focused on was with our tracking API.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Our p95 latency was at 900 milliseconds.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "For a tracking API, that level of latency was the problem I needed to solve.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I addressed it by adding read replicas and query indexes.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I did that work on our Python and PostgreSQL tracking API stack.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "After adding read replicas and query indexes, our p95 tracking-API latency went from 900ms to 180ms.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "So we brought p95 latency from 900 milliseconds down to 180 milliseconds.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That is the performance problem I solved at Northwind Logistics.",
+       "judge": "supported",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "D": {
+     "sentences": [
+      {
+       "text": "I was a Backend Engineer at Northwind Logistics from 2018 to 2021 building shipment-tracking APIs in Python and PostgreSQL.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Let me walk you through the performance issue I handled.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "Our tracking-API p95 latency was at 900ms, which was too slow.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I added read replicas and query indexes to fix it.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "After my change, p95 tracking-API latency went from 900ms to 180ms.",
+       "judge": "supported",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "C": {
+     "sentences": [
+      {
+       "text": "I was a Backend Engineer at Northwind Logistics from 2018 to 2021 building shipment-tracking APIs in Python and PostgreSQL.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Let me walk you through the performance issue I handled.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "Our tracking-API p95 latency was at 900ms, which was too slow.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I added read replicas and query indexes to fix it.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "After my change, p95 tracking-API latency went from 900ms to 180ms.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That is the result I owned, and I learned a lot from doing it.",
+       "judge": "supported",
+       "stray_numbers": []
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "E11",
+   "kind": "vague",
+   "question": "Describe a performance problem you solved.",
+   "answer": "Our tracking API was slow so I did some database tuning and it got a lot faster.",
+   "verifier_dropped": 0,
+   "conditions": {
+    "C": {
+     "sentences": [
+      {
+       "text": "Thanks for the question \u2014 let me share one example.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "I was a backend engineer at Northwind Logistics working on shipment-tracking APIs in Python and PostgreSQL.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Here is the performance issue I tackled and what I did about it.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "I added read replicas and query indexes to the tracking path.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That change brought p95 latency for the tracking API from 900ms down to 180ms.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Happy to dig deeper into any part of that if helpful.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "B": {
+     "sentences": [
+      {
+       "text": "As a Backend Engineer at Northwind Logistics from 2018 to 2021, I built shipment-tracking APIs in Python and PostgreSQL.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I want to describe a performance problem I solved on that tracking API.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "I started from a clear baseline where I saw our p95 latency was at 900 milliseconds.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I decided to focus my work on the database layer.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I added read replicas and I added query indexes for the tracking API.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I kept my effort tied directly to improving that p95 number.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I brought p95 latency down from 900 milliseconds to 180 milliseconds.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I consider that a strong example of how I diagnose a slow endpoint and deliver a measurable speedup.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "I still use that experience when I think about how I approach performance work.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "A": {
+     "sentences": [
+      {
+       "text": "At Northwind Logistics, I was a Backend Engineer owning our shipment-tracking APIs built in Python and PostgreSQL.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "During peak hours, customers started reporting timeouts, and when I checked our metrics our p95 latency had spiked to around 900 milliseconds.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I started by digging into our APM traces and Postgres slow query logs to isolate where time was actually being spent.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I found two main issues: our hottest lookup by tracking ID and status was doing sequential scans because we were missing the right composite index, and all that read traffic was hammering our primary database.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That primary was already saturated handling heavy writes from incoming scan events, so reads and writes were contending with each other.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "My fix was to add targeted indexes for those read patterns and to shift tracking reads onto a read replica with a safe fallback to the primary.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I rolled it out gradually while watching replica lag and error rates to make sure we weren't serving stale data.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The result was that our p95 dropped from 900 milliseconds to 180 milliseconds, peak-hour timeouts disappeared, and we bought ourselves a lot of headroom without having to vertically scale the primary.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "D": {
+     "sentences": [
+      {
+       "text": "Thanks for the question \u2014 let me share one example.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "I was a backend engineer at Northwind Logistics working on shipment-tracking APIs in Python and PostgreSQL.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Here is the performance issue I tackled and what I did about it.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "I added read replicas and query indexes to the tracking path.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That change brought p95 latency for the tracking API from 900ms down to 180ms.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Happy to dig deeper into any part of that if helpful.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "E12",
+   "kind": "inflated",
+   "question": "Describe a performance problem you solved.",
+   "answer": "I rewrote the tracking service in Go, which made it 10x faster and let us handle 50,000 requests per second.",
+   "verifier_dropped": 2,
+   "conditions": {
+    "A": {
+     "sentences": [
+      {
+       "text": "At Northwind Logistics I was a backend engineer owning our shipment-tracking APIs in Python and PostgreSQL.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Our p95 latency had crept up to around 900 milliseconds at peak, and customers were complaining about slow tracking lookups.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I dug into slow query logs and database metrics and found two clear bottlenecks: heavy read traffic hitting the primary, and missing indexes on our most common lookup paths.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Instead of just scaling up the database, I decided to separate read and write traffic and fix the queries themselves.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I added read replicas to serve the tracking reads and added targeted indexes for our top filters.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I rolled it out carefully, validated it with load tests and in production, and watched p95 latency and replica lag closely.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That brought p95 tracking-API latency down from 900 milliseconds to 180 milliseconds.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "It also took a ton of pressure off the primary, which made us much more stable during peak traffic.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "It really reinforced for me to measure first, find the real data-layer bottleneck, and fix that before reaching for a rewrite.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "D": {
+     "sentences": [
+      {
+       "text": "I was a backend engineer at Northwind Logistics working on our shipment-tracking APIs built in Python and Postgres.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Here is the situation we ran into and what I did about it.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "After the change, our p95 went from 900 milliseconds down to 180 milliseconds.",
+       "judge": "supported",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "B": {
+     "sentences": [
+      {
+       "text": "From 2018 to 2021 I was a Backend Engineer at Northwind Logistics building shipment-tracking APIs in Python and PostgreSQL.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The clearest performance problem I solved there was high latency on our tracking API.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Our p95 latency had reached 900ms, which was too slow for an endpoint customers rely on constantly.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I focused on the database layer because that is where the bottleneck was.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I added read replicas to distribute read traffic away from the primary.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I also added query indexes to speed up our expensive lookups.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Together those two changes brought our p95 tracking-API latency from 900ms down to 180ms.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "It was a straightforward change with a very visible impact on the customer experience.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "That work reinforced for me how much read scaling and indexing matter for Postgres-backed APIs.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "C": {
+     "sentences": [
+      {
+       "text": "I was a backend engineer at Northwind Logistics working on our shipment-tracking APIs built in Python and Postgres.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Here is the situation we ran into and what I did about it.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "Our tracking API p95 was sitting at 900 milliseconds, which was too slow for our users, so my task was to bring that down.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I added read replicas to take load off the primary and added query indexes for our hottest tracking queries.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "After the change, our p95 went from 900 milliseconds down to 180 milliseconds.",
+       "judge": "supported",
+       "stray_numbers": []
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "E13",
+   "kind": "vague",
+   "question": "Tell me about your experience with ledgering or double-entry accounting.",
+   "answer": "I've worked a lot on payments, so I'm familiar with how money moves through systems and I'd pick up ledgering quickly.",
+   "verifier_dropped": 0,
+   "conditions": {
+    "D": {
+     "sentences": [
+      {
+       "text": "To be direct about the gap, here is the closest payments work I can speak to from my own experience.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "I spent 2021 to 2025 at Lumen Pay as a Senior Backend Engineer on a payments platform team of 6 engineers.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The closest money-correctness problem I owned was designing idempotency keys for the refunds API after duplicates reached 0.3% of requests.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I disagreed with shipping refunds without that protection, so I proposed a two-week delay and wrote up the risk, which the VP approved.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I have not built a double-entry ledger, so I cannot claim balancing or posting experience from production.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "If helpful, I can walk through how that idempotency check worked in detail.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "A": {
+     "sentences": [
+      {
+       "text": "I haven't owned a formal double-entry ledger in production, but I've spent four years on the payments platform at Lumen Pay where ledgering principles were central to everything we did.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I led our refunds API work where we were seeing duplicate refunds on about 0.3% of requests, so I designed idempotency keys to guarantee exactly-once effects.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That work forced me to think like a ledger engineer: every money movement has to be immutable, auditable, and reconcilable, with no silent overwrites.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "I actually pushed to delay our refunds launch by two weeks to get that idempotency right, writing up the risk for our VP, because I knew you can't easily undo double-charges after the fact.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I understand double-entry fundamentals well \u2014 every transaction as balanced debits and credits, append-only entries, and a trial balance you can reconcile at any time.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "I've applied that same mindset to our event-driven payout flows, migrating webhook delivery from a cron poller to Kafka and cutting median delivery latency from 40 seconds to 2 seconds while preserving ordering and retry safety.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I also owned our on-call runbook rewrite and cut pages from 14 to 5 a week, which taught me how critical clear audit trails are when you're debugging money movement at 2am.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "So while I'd ramp quickly on your specific ledger schema, I'm bringing the core instincts around correctness, idempotency, and reconciliation from day one.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "C": {
+     "sentences": [
+      {
+       "text": "To be direct about the gap, here is the closest payments work I can speak to from my own experience.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "I spent 2021 to 2025 at Lumen Pay as a Senior Backend Engineer on a payments platform team of 6 engineers.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The closest money-correctness problem I owned was designing idempotency keys for the refunds API after duplicates reached 0.3% of requests.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I disagreed with shipping refunds without that protection, so I proposed a two-week delay and wrote up the risk, which the VP approved.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I have not built a double-entry ledger, so I cannot claim balancing or posting experience from production.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "If helpful, I can walk through how that idempotency check worked in detail.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "B": {
+     "sentences": [
+      {
+       "text": "To be direct, I haven't built a ledgering system or implemented double-entry accounting.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "From 2021 to 2025, I was a Senior Backend Engineer at Lumen Pay on the payments platform team of six engineers.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "There I designed idempotency keys for the refunds API after duplicate refunds reached 0.3% of requests.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I also pushed for correctness over speed when I disagreed with our product lead on shipping refunds without idempotency.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I wrote up the risk, proposed a two-week delay, and our VP approved it.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I also led the migration of webhook delivery from a cron poller to an event queue on Kafka, which cut median delivery latency from 40 seconds to 2 seconds.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I owned our on-call runbook rewrite, and pages per week dropped from 14 to 5 over one quarter.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "And I mentored two junior engineers through their first production launches.",
+       "judge": "supported",
+       "stray_numbers": []
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "E14",
+   "kind": "inflated",
+   "question": "Tell me about your experience with ledgering or double-entry accounting.",
+   "answer": "I designed the double-entry ledger at Lumen Pay that reconciled $500M a month with zero discrepancies.",
+   "verifier_dropped": 1,
+   "conditions": {
+    "A": {
+     "sentences": [
+      {
+       "text": "I haven't owned a full double-entry ledger end-to-end, but I've worked very close to money movement as a Senior Backend Engineer on Lumen Pay's six-person payments platform team from 2021 to 2025.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "My most relevant experience was with our refunds API, where duplicate refunds had reached 0.3% of requests.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I designed idempotency keys for that API so a retry could never create duplicate financial effects, which forced me to think in ledger terms where every action has to balance and be reconcilable.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "When there was pressure to ship refunds without that protection, I disagreed with our product lead and wrote up the financial risk to propose a two-week delay, which our VP approved.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I also led our migration of webhook delivery from a cron poller to an event queue on Kafka, cutting median delivery latency from 40 seconds to 2 seconds and giving us a much cleaner, ordered audit trail of payment events.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Earlier at Northwind Logistics from 2018 to 2021, I built shipment-tracking APIs in Python and PostgreSQL, so I'm very comfortable with transactions, constraints, and the indexing needed to query financial-style data quickly.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "There I brought p95 latency from 900ms to 180ms with read replicas and indexes, and I wrote the postmortem for a 3-hour outage caused by a schema migration lock.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I also rewrote our on-call runbook at Lumen Pay and mentored two juniors through their first launches, so I care a lot about correctness and operability.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I'm excited to go deeper on formal double-entry accounting, because my background in idempotent payments and Postgres gives me a strong foundation for it.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "C": {
+     "sentences": [
+      {
+       "text": "To be direct, I have not built a double-entry ledger, so I will not claim that.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "My closest relevant background is my time as a senior backend engineer on a small payments platform team in fintech.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "There I tackled duplicate money movement by designing idempotency keys for our refunds API after duplicates hit a small but serious rate.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I also led moving webhook delivery off a cron poller onto an event queue, which brought median delivery time down substantially.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Earlier I built tracking APIs backed by a relational database, so I am comfortable with transactional stores and indexes.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That is why ledgering itself would be a ramp-up area for me.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "B": {
+     "sentences": [
+      {
+       "text": "I don't have direct experience building a double-entry ledger, but most of my work at Lumen Pay was on closely related payments correctness problems.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I was a Senior Backend Engineer on the payments platform team of 6 engineers from 2021 to 2025.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I designed idempotency keys for our refunds API after we found duplicate refunds had reached 0.3% of requests.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I pushed to get that right before launch, including disagreeing with our product lead on shipping refunds without idempotency and proposing a two-week delay with a risk write-up, which our VP approved.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I also led our migration of webhook delivery from a cron poller to an event queue on Kafka, which cut median delivery latency from 40s to 2s.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Earlier, I was a Backend Engineer at Northwind Logistics from 2018 to 2021 building shipment-tracking APIs in Python and PostgreSQL.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "There I added read replicas and query indexes that brought p95 tracking-API latency from 900ms to 180ms.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I wrote the postmortem for a 3-hour tracking outage caused by a schema migration lock.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "At Lumen Pay I owned the on-call runbook rewrite where pages per week dropped from 14 to 5 over one quarter, and I mentored 2 junior engineers through their first production launches.",
+       "judge": "supported",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "D": {
+     "sentences": [
+      {
+       "text": "My closest relevant background is my time as a senior backend engineer on a small payments platform team in fintech.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "There I tackled duplicate money movement by designing idempotency keys for our refunds API after duplicates hit a small but serious rate.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I also led moving webhook delivery off a cron poller onto an event queue, which brought median delivery time down substantially.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Earlier I built tracking APIs backed by a relational database, so I am comfortable with transactional stores and indexes.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That is why ledgering itself would be a ramp-up area for me.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "E15",
+   "kind": "vague",
+   "question": "How do you mentor engineers?",
+   "answer": "I really enjoy mentoring. I try to help junior people grow and I give a lot of feedback in code review.",
+   "verifier_dropped": 0,
+   "conditions": {
+    "A": {
+     "sentences": [
+      {
+       "text": "I genuinely love mentoring because I know how much faster I grew when seniors invested in me.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "At Lumen Pay on our six-person payments platform team, I mentored two junior engineers through their first production launches.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I start by learning what they want to grow toward and we agree on one or two concrete skills to focus on.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "Then I give them real, meaningful work that stretches them just beyond their comfort zone, not just bugs and chores.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "I use code review as a teaching tool, so I don\u2019t just leave comments, I explain the why behind the pattern.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "We also pair on design and hard debugging so they can see how I break down ambiguous problems out loud.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "Before launch, I have them own readiness end to end, writing the rollout plan, dashboards, and rollback steps and walking me through it.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "Both of them launched to production successfully and grew into confidently reviewing other people\u2019s code.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "For me, great mentoring means they become independent quickly and then start lifting up the next person.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "C": {
+     "sentences": [
+      {
+       "text": "Mentoring is something I take seriously.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "I was a senior backend engineer at Lumen Pay from 2021 to 2025, on our six-person payments platform team.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "There, I mentored two junior engineers through their first production launches.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "For me, the goal is helping someone move from needing close guidance to owning a launch themselves.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "With those two, success for me meant getting them all the way to shipping to production.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "The record I have doesn\u2019t include more detail on my exact tactics or their later growth, and I don\u2019t want to invent that.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "D": {
+     "sentences": [
+      {
+       "text": "Mentoring is something I take seriously.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "I was a senior backend engineer at Lumen Pay from 2021 to 2025, on our six-person payments platform team.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "There, I mentored two junior engineers through their first production launches.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "For me, the goal is helping someone move from needing close guidance to owning a launch themselves.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "With those two, success for me meant getting them all the way to shipping to production.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The record I have doesn\u2019t include more detail on my exact tactics or their later growth, and I don\u2019t want to invent that.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "B": {
+     "sentences": [
+      {
+       "text": "As a Senior Backend Engineer on the payments platform team of six at Lumen Pay, mentoring has been an important part of my role.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I really enjoy mentoring and helping junior people grow.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "Most directly, I mentored two junior engineers through their first production launches.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I worked closely with them as they prepared to ship to production for the first time.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I try to give a lot of helpful feedback in code review so they can build strong habits early.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "My goal is to support them while helping them become more confident and independent.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "I want them to feel ownership over their launches, not just follow instructions from me.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "Seeing both of them get through their first production launches successfully was really rewarding.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That experience is a big part of why I enjoy mentoring as a senior engineer.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "E16",
+   "kind": "inflated",
+   "question": "How do you mentor engineers?",
+   "answer": "I ran the mentorship program for 30 engineers and 5 of my mentees were promoted to senior within a year.",
+   "verifier_dropped": 3,
+   "conditions": {
+    "A": {
+     "sentences": [
+      {
+       "text": "I've found mentoring works best when it's tied to real production ownership, not just advice.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "At Lumen Pay as a Senior Backend Engineer on our six-person payments platform team, I mentored two junior engineers through their first production launches.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I started by setting clear, scoped goals with each of them so they knew exactly what success looked like for that first launch.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "We did regular pairing sessions and thorough code reviews, where I focused on explaining the why behind patterns around testing, reliability, and operability.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I deliberately gave them progressively larger ownership, starting with a small well-defined task and building up to owning a feature end-to-end including rollout and monitoring.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I also walked them through on-call expectations using the runbook I owned, so they felt confident supporting what they shipped.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Both of them launched successfully to production without major rollbacks.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "For me, that's the measure of good mentorship \u2014 helping engineers go from needing close guidance to confidently and safely owning production systems on their own.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "B": {
+     "sentences": [
+      {
+       "text": "At Lumen Pay, I was a Senior Backend Engineer on our six-person payments platform team, and I mentored two junior engineers through their first production launches.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I focused on helping them move from just writing code to actually owning something in production.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "A big part of that was sharing what I had learned from my own operational work.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I had owned our on-call runbook rewrite at Lumen Pay, and earlier at Northwind Logistics I had written the postmortem for a three-hour tracking outage caused by a schema migration lock.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "So I coached them on thinking through readiness, risk, and learning from incidents.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "It was rewarding for me to see both of them get through their first production launches successfully.",
+       "judge": "supported",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "D": {
+     "sentences": [
+      {
+       "text": "When I was at Lumen Pay I was working as a senior backend engineer with five other folks on payments.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "For me, mentoring works best when it's tied to real shipping work.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "In that time I helped two more junior teammates get through their first times shipping to production.",
+       "judge": "supported",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "C": {
+     "sentences": [
+      {
+       "text": "When I was at Lumen Pay I was working as a senior backend engineer with five other folks on payments.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "For me, mentoring works best when it's tied to real shipping work.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "In that time I helped two more junior teammates get through their first times shipping to production.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "My focus was on keeping feedback small, concrete, and close to the work itself.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "We stayed focused until both of them had successfully gotten those initial launches out.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That experience taught me a lot about how to pace support without taking over.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "E17",
+   "kind": "honest",
+   "question": "Tell me about an outage you were involved in.",
+   "answer": "At Northwind I wrote the postmortem for a 3-hour tracking outage that was caused by a schema migration lock.",
+   "verifier_dropped": 1,
+   "conditions": {
+    "D": {
+     "sentences": [
+      {
+       "text": "I was a Backend Engineer at Northwind Logistics from 2018 to 2021, building shipment-tracking APIs in Python and PostgreSQL.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I wrote the postmortem for a 3-hour tracking outage caused by a schema migration lock.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "To be direct about scope here:",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "What I can confirm from my record is the context above and writing that postmortem itself, not the minute-by-minute response steps.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "What writing it reinforced for me was documenting the timeline and root cause clearly so the team could learn from it.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "C": {
+     "sentences": [
+      {
+       "text": "Happy to walk you through an outage I was part of.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "I was a Backend Engineer at Northwind Logistics from 2018 to 2021, building shipment-tracking APIs in Python and PostgreSQL.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I wrote the postmortem for a 3-hour tracking outage caused by a schema migration lock.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "To be direct about scope here:",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "What I can confirm from my record is the context above and writing that postmortem itself, not the minute-by-minute response steps.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "What writing it reinforced for me was documenting the timeline and root cause clearly so the team could learn from it.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "B": {
+     "sentences": [
+      {
+       "text": "I was a Backend Engineer at Northwind Logistics from 2018 to 2021.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "There I worked on building shipment-tracking APIs in Python and PostgreSQL.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The outage I was involved in was a 3-hour outage of our tracking system.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "It was caused by a schema migration lock.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I wrote the postmortem for that outage.",
+       "judge": "supported",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "A": {
+     "sentences": [
+      {
+       "text": "At Northwind Logistics, I was a backend engineer working on our shipment-tracking APIs in Python and Postgres.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "We had a major incident where tracking went down for about three hours and customers couldn't get any shipment updates.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I joined the response and helped dig in, and we found a schema migration had taken a lock on our core shipments table.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That lock was blocking reads and writes, so traffic just piled up until everything timed out.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "We stopped the migration, cleared the blocked queries, and brought the API back, then closely monitored latency and errors to confirm we were fully recovered.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Afterward, I owned writing the blameless postmortem.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I documented the timeline, the root cause, and why we hadn't caught the lock risk in review.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I also proposed guardrails going forward, like safer migration patterns, testing on production-like data, and clearer rollout and rollback steps.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "It was a painful outage, but it made our team much more disciplined about database changes.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "E18",
+   "kind": "vague",
+   "question": "Tell me about an outage you were involved in.",
+   "answer": "We had an outage once from a migration. I helped write up what happened so it wouldn't happen again.",
+   "verifier_dropped": 0,
+   "conditions": {
+    "D": {
+     "sentences": [
+      {
+       "text": "Sure, I can share the outage I documented:",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "I was a Backend Engineer at Northwind Logistics building shipment-tracking APIs.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "We had a tracking outage that lasted 3 hours and was caused by a schema migration lock.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "My contribution was that I wrote the postmortem for that outage.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "To be direct about gaps:",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "I do not have confirmed details to share here about detection, live mitigation, or follow-up fixes.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "B": {
+     "sentences": [
+      {
+       "text": "I was a Backend Engineer at Northwind Logistics from 2018 to 2021, where I built shipment-tracking APIs in Python and PostgreSQL.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The outage I want to tell you about was a tracking outage on that system.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "It lasted about three hours and was caused by a schema migration lock.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I was involved in that incident and my main contribution was writing the postmortem for it.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I focused on documenting what happened during the migration and the outage that followed.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I wanted to make sure we had a clear written record of the incident.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "For me, it was a formative experience in taking ownership after a failure.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "It reinforced for me how important clear documentation is when you are working on critical backend systems.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "A": {
+     "sentences": [
+      {
+       "text": "Yeah, the biggest one I was part of was at Northwind Logistics, where I was a Backend Engineer on our shipment-tracking APIs in Python and Postgres.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "We pushed what looked like a routine schema migration, and it grabbed a lock that blocked queries and took tracking down for about three hours.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I was pulled into the response to help triage, and I helped confirm it was a schema migration lock and not a traffic spike or downstream issue.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Once we identified it, we killed the stalled migration, rolled back safely, and got traffic recovering while we monitored the database closely.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Afterward, I owned writing the postmortem, so I pulled the timeline together from deploy logs, lock activity, and customer impact data.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I kept it blameless but direct about what we missed in review and why we had run a locking migration during peak hours.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The action items I pushed were switching to expand-contract migrations, testing against a production-like database, and adding lock-timeout alerts and a safer deploy checklist.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That process stuck, and it really taught me how to stay calm in an incident and turn an outage into lasting prevention.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "C": {
+     "sentences": [
+      {
+       "text": "Sure, I can share the outage I documented:",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "I was a Backend Engineer at Northwind Logistics building shipment-tracking APIs.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "We had a tracking outage that lasted 3 hours and was caused by a schema migration lock.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "My contribution was that I wrote the postmortem for that outage.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "To be direct about gaps:",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "I do not have confirmed details to share here about detection, live mitigation, or follow-up fixes.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "E19",
+   "kind": "inflated",
+   "question": "Tell me about a time you influenced leadership.",
+   "answer": "My risk write-up was so convincing it became the company-wide template, and leadership adopted idempotency standards across 40 services.",
+   "verifier_dropped": 0,
+   "conditions": {
+    "C": {
+     "sentences": [
+      {
+       "text": "Let me walk you through a time I had to push back on a launch to manage risk.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "At the time I was working at a fintech on a small payments platform team.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "We had a problem where a small percentage of refund requests were going through twice.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Product still wanted to ship the new flow right away, and I disagreed with moving forward without protection.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "So I wrote up the risk clearly and asked for a short pause to build the safeguard.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The VP reviewed it and agreed to hold the launch for that period.",
+       "judge": "supported",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "A": {
+     "sentences": [
+      {
+       "text": "At Lumen Pay I was a Senior Backend Engineer on our six-person payments platform team.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "We were getting ready to launch a new refunds API, but in testing duplicate refunds had reached 0.3% of requests.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Our product lead wanted to ship on schedule without idempotency and fix it later.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I was concerned that shipping as-is would cause direct financial harm and damage merchant trust.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "So I wrote a concise risk write-up laying out the duplicate rate, the business impact, and a proposal for a two-week delay to do it right.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I brought that tradeoff directly to the product lead and our VP.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The VP approved the delay even though it meant moving our launch date.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I then designed idempotency keys for the refunds API so retries could be handled safely without creating duplicate refunds.",
+       "judge": "supported",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "D": {
+     "sentences": [
+      {
+       "text": "Let me walk you through a time I had to push back on a launch to manage risk.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      },
+      {
+       "text": "At the time I was working at a fintech on a small payments platform team.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "We had a problem where a small percentage of refund requests were going through twice.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Product still wanted to ship the new flow right away, and I disagreed with moving forward without protection.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "So I wrote up the risk clearly and asked for a short pause to build the safeguard.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The VP reviewed it and agreed to hold the launch for that period.",
+       "judge": "supported",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "B": {
+     "sentences": [
+      {
+       "text": "At Lumen Pay I was a Senior Backend Engineer on the payments platform team of six engineers.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "We were preparing to ship the refunds API at a point when duplicate refunds had reached 0.3% of requests.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The product lead wanted to ship without idempotency to stay on schedule.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I disagreed because I believed shipping without that protection would continue to cause duplicate refunds.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "To influence the decision, I wrote up the risk and proposed a two-week delay to do the work properly.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The VP reviewed my write-up and approved the delay.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I then designed idempotency keys for the refunds API.",
+       "judge": "supported",
+       "stray_numbers": []
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "E20",
+   "kind": "vague",
+   "question": "What's the most impactful thing you've built?",
+   "answer": "Probably the webhook work. We moved to an event-driven design and it really changed things for the team.",
+   "verifier_dropped": 3,
+   "conditions": {
+    "B": {
+     "sentences": [
+      {
+       "text": "I was a Senior Backend Engineer at Lumen Pay from 2021 to 2025 on our six-person payments platform team.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "The most impactful thing I built there was leading the migration of webhook delivery from a cron poller to an event queue on Kafka.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Before the migration, our median delivery latency was 40 seconds.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That polling model set the limit on how quickly I could get deliveries out.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I led the work to replace it with an event-driven design.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "After we shipped it, our median delivery latency was 2 seconds.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I point to this project first because that shift from 40 seconds to 2 seconds was such a large, concrete change.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "It is the clearest example I have of an architectural change directly improving latency for the team.",
+       "judge": "supported",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "D": {
+     "sentences": [
+      {
+       "text": "I was a senior backend engineer on the payments platform team with five other engineers.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "After we launched, median delivery time fell from 40 seconds down to 2 seconds.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That is why I point to it as my most impactful build.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "C": {
+     "sentences": [
+      {
+       "text": "The most impactful thing I built was the webhook delivery migration at Lumen Pay.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I was a senior backend engineer on the payments platform team with five other engineers.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "At the time delivery was still running on a cron poller, so I was asked to lead the shift to a queue-based system using Kafka.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I owned the migration plan, the rollout, and getting merchants cut over without disruption.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "After we launched, median delivery time fell from 40 seconds down to 2 seconds.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That is why I point to it as my most impactful build.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    },
+    "A": {
+     "sentences": [
+      {
+       "text": "The most impactful thing I've built was re-architecting webhook delivery for the payments platform at Lumen Pay.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I was a Senior Backend Engineer on a team of six engineers, and reliable, real-time notifications were critical for our merchants.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "When I joined the effort, we were running a cron poller that scanned the database every minute, which put our median delivery latency at around 40 seconds.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "It got much worse during peak volume, and it was fragile and hard to scale.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "I led the migration from that poller to an event-driven design on Kafka with dedicated delivery workers.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "We added proper retry logic with exponential backoff and much better observability so we could see failures immediately.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That work cut our median delivery latency from 40 seconds down to 2 seconds.",
+       "judge": "supported",
+       "stray_numbers": []
+      },
+      {
+       "text": "It also eliminated the polling load on the database and made the system far more resilient during traffic spikes.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "Merchants felt the difference right away, and it unlocked real-time use cases that just weren't possible before.",
+       "judge": "unsupported",
+       "stray_numbers": []
+      },
+      {
+       "text": "That's why I consider it my most impactful build, because it fundamentally changed how reliable and fast our platform felt to customers.",
+       "judge": "no_claim",
+       "stray_numbers": []
+      }
+     ]
+    }
+   }
+  }
+ ]
+}

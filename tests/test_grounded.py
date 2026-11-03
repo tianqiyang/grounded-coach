@@ -112,6 +112,21 @@ class PipelineTests(unittest.TestCase):
         md = coach.brief_markdown(self.store, plan["id"])
         self.assertIn("Last practice", md)
 
+    def test_entailment_removes_embellishment_and_missing_verdicts(self):
+        facts = self.store.confirmed_facts()
+        sents = [{"text": facts["F-4"]["text"], "fact_id": "F-4"},
+                 {"text": "I audited every single alert, rebuilt dashboards and trained the whole org on paging hygiene.", "fact_id": "F-4"},
+                 {"text": "Here is an example.", "fact_id": None}]
+        kept, removed, _ = coach.entailment_filter(self.client, sents, facts)
+        self.assertEqual([s["text"] for s in kept], [sents[0]["text"], sents[2]["text"]])
+        self.assertIn("adds detail beyond F-4", removed[0]["issues"][0])
+
+        class Silent:
+            def chat_json(self, *a, **k):
+                return {"verdicts": []}, {}
+        kept, removed, _ = coach.entailment_filter(Silent(), sents, facts)
+        self.assertEqual((kept, len(removed)), ([], 3))
+
     def test_followup_drill_chains_and_stops(self):
         plan = coach.make_plan(self.client, self.store, "Orbit", "SSE", self.jd)
         g = coach.grade_answer(self.client, self.store, plan["id"], "Q1", "I led the migration of webhook delivery to Kafka on the payments platform team.")
