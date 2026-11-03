@@ -228,8 +228,12 @@ MAX_FOLLOWUPS = 3
 
 
 def _grade(client, store: Store, question: str, qtype: str, why: str, story: dict | None, answer: str,
-           history: list[dict] | None = None, depth: int = 0) -> dict:
-    """One model call + local verification. Shared by first answers and follow-up rounds."""
+           history: list[dict] | None = None, depth: int = 0, entail: bool = True) -> dict:
+    """One model call + local verification. Shared by first answers and follow-up rounds.
+
+    With entail=False the entailment pass is deferred: the result is marked pending and the UI shows scores first,
+    then calls finish_entailment. A pending rewrite is never shown to the user.
+    """
     if len(answer.strip()) < 20:
         raise ValueError("Answer is too short to grade.")
     confirmed = store.confirmed_facts()
@@ -256,7 +260,8 @@ def _grade(client, store: Store, question: str, qtype: str, why: str, story: dic
         (improved if checked["status"] == "grounded" else dropped).append(checked)
     before_entailment = [s["text"] for s in improved]
     calls = [meta]
-    if improved:
+    pending = bool(improved) and not entail
+    if improved and entail:
         improved, removed, emeta = entailment_filter(client, improved, confirmed)
         dropped += removed
         calls.append(emeta)
@@ -267,6 +272,7 @@ def _grade(client, store: Store, question: str, qtype: str, why: str, story: dic
         "claims": claims, "grounding_rate": round(grounded / len(claims), 2) if claims else None,
         "stray_numbers": stray_numbers(answer, confirmed),
         "improved_answer": improved, "dropped_sentences": dropped, "improved_before_entailment": before_entailment,
+        "entailment": "pending" if pending else "done",
         "follow_up": "" if depth >= MAX_FOLLOWUPS else data.get("follow_up", ""), "call": calls,
     }
 
@@ -307,7 +313,22 @@ def entailment_filter(client, sentences: list[dict], facts: dict[str, dict]) -> 
     return kept, removed, meta
 
 
-def grade_answer(client, store: Store, plan_id: int, question_id: str, answer: str, seconds: int | None = None) -> dict:
+def finish_entailment(client, store: Store, attempt_id: int) -> dict:
+    """Run the deferred entailment pass on a stored attempt and save the filtered rewrite."""
+    a = store.attempt(attempt_id)
+    if not a:
+        raise KeyError("attempt not found")
+    if a.get("entailment") != "pending":
+        return a
+    kept, removed, meta = entailment_filter(client, a["improved_answer"], store.confirmed_facts())
+    a |= {"improved_answer": kept, "dropped_sentences": a["dropped_sentences"] + removed,
+          "call": a["call"] + [meta], "entailment": "done"}
+    store.update_attempt(attempt_id, {k: v for k, v in a.items() if k not in ("id", "plan_id", "question_id", "created_at")})
+    return a
+
+
+def grade_answer(client, store: Store, plan_id: int, question_id: str, answer: str, seconds: int | None = None,
+                 entail: bool = True) -> dict:
     plan = store.plan(plan_id)
     if not plan:
         raise KeyError("plan not found")
@@ -315,13 +336,14 @@ def grade_answer(client, store: Store, plan_id: int, question_id: str, answer: s
     if not q:
         raise KeyError("question not found")
     story = next((s for s in store.stories() if s["id"] == q.get("story_id")), None)
-    result = _grade(client, store, q["question"], q["type"], q["why"], story, answer)
+    result = _grade(client, store, q["question"], q["type"], q["why"], story, answer, entail=entail)
     result |= {"seconds": seconds, "parent_id": None, "root_id": None}
     result["id"] = store.save_attempt(plan_id, question_id, result)
     return result
 
 
-def grade_followup(client, store: Store, attempt_id: int, answer: str, seconds: int | None = None) -> dict:
+def grade_followup(client, store: Store, attempt_id: int, answer: str, seconds: int | None = None,
+                   entail: bool = True) -> dict:
     """Answer the interviewer's follow-up to an earlier attempt; chains up to MAX_FOLLOWUPS rounds."""
     parent = store.attempt(attempt_id)
     if not parent:
@@ -337,7 +359,7 @@ def grade_followup(client, store: Store, attempt_id: int, answer: str, seconds: 
     story = next((s for s in store.stories() if s["id"] == q.get("story_id")), None)
     history = [{"question": a["question"], "answer": a["answer"]} for a in chain]
     result = _grade(client, store, parent["follow_up"], q.get("type", "behavioral"), "Interviewer follow-up probe.",
-                    story, answer, history, depth=parent.get("depth", 0) + 1)
+                    story, answer, history, depth=parent.get("depth", 0) + 1, entail=entail)
     result |= {"seconds": seconds, "parent_id": parent["id"], "root_id": root["id"]}
     result["id"] = store.save_attempt(parent["plan_id"], parent["question_id"], result)
     return result

@@ -75,3 +75,5 @@ summary { cursor: pointer; font-weight: 600; }
 .probe { font-weight: 600; margin-bottom: 4px; }
 .said { color: var(--muted); font-style: italic; margin-bottom: 6px; }
 .followup textarea { background: var(--panel); }
+.answer-out.checking { color: var(--muted, #777); font-style: italic; animation: pulse 1.4s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity: .45; } }

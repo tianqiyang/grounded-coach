@@ -106,6 +106,10 @@ class Store:
                                    (plan_id, question_id, json.dumps(body), now()))
         return cur.lastrowid
 
+    def update_attempt(self, attempt_id: int, body: dict):
+        with self.lock, self.con:
+            self.con.execute("UPDATE attempts SET body=? WHERE id=?", (json.dumps(body), attempt_id))
+
     def attempt(self, attempt_id: int) -> dict | None:
         r = self.con.execute("SELECT * FROM attempts WHERE id=?", (attempt_id,)).fetchone()
         if not r:

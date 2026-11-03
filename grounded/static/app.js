@@ -81,14 +81,17 @@ function selectQ(id) {
 }
 
 const MAX_FOLLOWUPS = 3;
-let followupShownAt = null;
+let followupShownAt = null, shownRoot = null;
+const checking = new Set();
 
 // A root attempt plus its follow-up rounds, oldest first.
 function thread(rootId) { return state.attempts.filter((a) => a.id === rootId || a.root_id === rootId).sort((a, b) => a.id - b.id); }
 
 function renderThread(rootId) {
   const chain = thread(rootId), last = chain.at(-1);
+  shownRoot = rootId;
   if (!last) { $("#grade-out").innerHTML = ""; return; }
+  const draft = $("#fu-answer")?.dataset.attempt == last.id ? $("#fu-answer").value : "";
   let html = chain.map((g, i) => `<div class="turn">${i ? `<div class="probe"><b>Follow-up ${i} of ${MAX_FOLLOWUPS}:</b> ${esc(g.question)}</div>
       <div class="said">“${esc(g.answer)}”</div>` : ""}${gradeHtml(g)}</div>`).join("");
   if (last.follow_up) {
@@ -96,12 +99,31 @@ function renderThread(rootId) {
       <textarea id="fu-answer" rows="4" placeholder="Answer the follow-up. If your record doesn't cover it, say so."></textarea>
       <div class="row between"><span class="muted">Round ${(last.depth || 0) + 1} of ${MAX_FOLLOWUPS}</span>
       <button id="btn-fu" data-attempt="${last.id}">Answer follow-up</button></div></div>`;
-    followupShownAt = Date.now();
+    if (!draft) followupShownAt = Date.now();
   } else if (chain.length > 1) {
     const rates = chain.map((g) => g.grounding_rate).filter((x) => x != null);
     html += `<div class="followup"><b>Drill complete.</b> ${chain.length - 1} follow-up round(s); average grounding ${rates.length ? Math.round(rates.reduce((a, b) => a + b, 0) / rates.length * 100) : "–"}%.</div>`;
   }
   $("#grade-out").innerHTML = html;
+  const fu = $("#fu-answer");
+  if (fu) { fu.dataset.attempt = last.id; fu.value = draft; }
+  chain.filter((g) => g.entailment === "pending").forEach(finishCheck);
+}
+
+// Scores arrive first; the rewrite is shown only after each sentence is checked against its cited fact.
+async function finishCheck(g) {
+  if (checking.has(g.id)) return;
+  checking.add(g.id);
+  try {
+    const done = await api("/api/entail", { attempt_id: g.id });
+    state.attempts = state.attempts.map((a) => (a.id === g.id ? { ...a, ...done } : a));
+    if (shownRoot === (g.root_id ?? g.id)) renderThread(shownRoot);
+    updateBudget();
+  } catch (e) { toast(e.message, true); } finally { checking.delete(g.id); }
+}
+async function updateBudget() {
+  const b = (await api("/api/state")).budget;
+  $("#status .pill").nextElementSibling.textContent = `$${b.spent.toFixed(4)} / $${b.cap.toFixed(0)} · ${b.calls} calls`;
 }
 
 function gradeHtml(g) {
@@ -115,8 +137,10 @@ function gradeHtml(g) {
     <h3>What you claimed</h3>${g.claims.map(claim).join("")}
     <div class="grid2"><div><h3>Strengths</h3><ul>${g.strengths.map((s) => `<li>${esc(s)}</li>`).join("")}</ul></div>
       <div><h3>Fix next</h3><ul>${g.fixes.map((s) => `<li>${esc(s)}</li>`).join("")}</ul></div></div>
-    <h3>Grounded rewrite</h3><div class="answer-out">${g.improved_answer.map((s) => `<p>${esc(s.text)} ${s.fact_id ? `<span class="tag grounded">${esc(s.fact_id)}</span>` : ""}</p>`).join("")}</div>
-    ${g.dropped_sentences?.length ? `<details><summary>${g.dropped_sentences.length} model sentence(s) removed by the verifier</summary>${g.dropped_sentences.map(claim).join("")}</details>` : ""}
+    <h3>Grounded rewrite</h3>${g.entailment === "pending"
+      ? `<div class="answer-out checking">Checking each sentence against the one fact it cites…</div>`
+      : `<div class="answer-out">${g.improved_answer.map((s) => `<p>${esc(s.text)} ${s.fact_id ? `<span class="tag grounded">${esc(s.fact_id)}</span>` : ""}</p>`).join("")}</div>`}
+    ${g.entailment !== "pending" && g.dropped_sentences?.length ? `<details><summary>${g.dropped_sentences.length} model sentence(s) removed by the verifier</summary>${g.dropped_sentences.map(claim).join("")}</details>` : ""}
     <div class="cost">${costLine(g.call)}${g.seconds ? ` · answered in ${g.seconds}s` : ""}</div>`;
 }
 
@@ -201,7 +225,7 @@ $("#btn-grade").addEventListener("click", (e) => busy(e.target, "Grading…", as
   clearInterval(tick); tick = null;
   const g = await api("/api/grade", { plan_id: state.plan.id, question_id: currentQ.id, answer: $("#answer").value, seconds });
   state = await api("/api/state"); renderThread(g.id); renderQuestions(); renderBrief();
-  $("#status .pill").nextElementSibling.textContent = `$${state.budget.spent.toFixed(4)} / $${state.budget.cap.toFixed(0)} · ${state.budget.calls} calls`;
+  updateBudget();
 }));
 $("#grade-out").addEventListener("click", (e) => {
   const b = e.target.closest("#btn-fu"); if (!b) return;
@@ -209,7 +233,7 @@ $("#grade-out").addEventListener("click", (e) => {
     const seconds = followupShownAt ? Math.round((Date.now() - followupShownAt) / 1000) : null;
     const g = await api("/api/followup", { attempt_id: Number(b.dataset.attempt), answer: $("#fu-answer").value, seconds });
     state = await api("/api/state"); renderThread(g.root_id); renderBrief();
-    $("#status .pill").nextElementSibling.textContent = `$${state.budget.spent.toFixed(4)} / $${state.budget.cap.toFixed(0)} · ${state.budget.calls} calls`;
+    updateBudget();
   });
 });
 $("#btn-copy").addEventListener("click", async () => { await navigator.clipboard.writeText($("#brief").dataset.md || ""); toast("Copied."); });

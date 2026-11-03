@@ -127,6 +127,18 @@ class PipelineTests(unittest.TestCase):
         kept, removed, _ = coach.entailment_filter(Silent(), sents, facts)
         self.assertEqual((kept, len(removed)), ([], 3))
 
+    def test_deferred_entailment_matches_inline(self):
+        plan = coach.make_plan(self.client, self.store, "Orbit", "SSE", self.jd)
+        answer = "I led the migration of webhook delivery to Kafka; median delivery latency went from 40s to 2s."
+        inline = coach.grade_answer(self.client, self.store, plan["id"], "Q1", answer)
+        g = coach.grade_answer(self.client, self.store, plan["id"], "Q1", answer, entail=False)
+        self.assertEqual(g["entailment"], "pending")
+        done = coach.finish_entailment(self.client, self.store, g["id"])
+        self.assertEqual(done["entailment"], "done")
+        self.assertEqual([s["text"] for s in done["improved_answer"]], [s["text"] for s in inline["improved_answer"]])
+        self.assertEqual(self.store.attempt(g["id"])["entailment"], "done")
+        self.assertEqual(len(coach.finish_entailment(self.client, self.store, g["id"])["call"]), len(done["call"]))
+
     def test_followup_drill_chains_and_stops(self):
         plan = coach.make_plan(self.client, self.store, "Orbit", "SSE", self.jd)
         g = coach.grade_answer(self.client, self.store, plan["id"], "Q1", "I led the migration of webhook delivery to Kafka on the payments platform team.")

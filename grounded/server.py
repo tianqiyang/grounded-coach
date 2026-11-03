@@ -103,10 +103,12 @@ def make_handler(store: Store, client):
                                                            body.get("jd", ""), bool(body.get("research"))))
                 if path == "/api/grade":
                     return self._send(200, coach.grade_answer(client, store, int(body["plan_id"]), body["question_id"],
-                                                              body.get("answer", ""), body.get("seconds")))
+                                                              body.get("answer", ""), body.get("seconds"), entail=False))
                 if path == "/api/followup":
                     return self._send(200, coach.grade_followup(client, store, int(body["attempt_id"]),
-                                                                body.get("answer", ""), body.get("seconds")))
+                                                                body.get("answer", ""), body.get("seconds"), entail=False))
+                if path == "/api/entail":
+                    return self._send(200, coach.finish_entailment(client, store, int(body["attempt_id"])))
                 return self._send(404, {"error": "unknown endpoint"})
             except BudgetExceeded as e:
                 self._send(402, {"error": str(e)})
