@@ -1,0 +1,30 @@
+{
+  "_note": "Fictional candidate for demos. Not a real person.",
+  "facts": [
+    {"id": "F-1", "text": "Senior Backend Engineer at Lumen Pay (fintech), 2021-2025, on the payments platform team of 6 engineers.", "source": "Résumé, experience"},
+    {"id": "F-2", "text": "Led the migration of webhook delivery from a cron poller to an event queue on Kafka, cutting median delivery latency from 40s to 2s.", "source": "Résumé, Lumen Pay bullet 1"},
+    {"id": "F-3", "text": "Designed idempotency keys for the refunds API after duplicate refunds reached 0.3% of requests.", "source": "Résumé, Lumen Pay bullet 2"},
+    {"id": "F-4", "text": "Owned the on-call runbook rewrite; pages per week dropped from 14 to 5 over one quarter.", "source": "Résumé, Lumen Pay bullet 3"},
+    {"id": "F-5", "text": "Mentored 2 junior engineers through their first production launches.", "source": "Résumé, Lumen Pay bullet 4"},
+    {"id": "F-6", "text": "Disagreed with the product lead on shipping refunds without idempotency; proposed a two-week delay with a risk write-up, which the VP approved.", "source": "Confirmed in intake interview"},
+    {"id": "F-7", "text": "Backend Engineer at Northwind Logistics, 2018-2021, building shipment-tracking APIs in Python and PostgreSQL.", "source": "Résumé, experience"},
+    {"id": "F-8", "text": "Added read replicas and query indexes that brought p95 tracking-API latency from 900ms to 180ms.", "source": "Résumé, Northwind bullet 1"},
+    {"id": "F-9", "text": "Wrote the postmortem for a 3-hour tracking outage caused by a schema migration lock.", "source": "Résumé, Northwind bullet 2"}
+  ],
+  "stories": [
+    {"id": "S-1", "title": "Webhook queue migration", "question_types": ["impact", "technical depth", "ownership"],
+     "situation": "Webhook delivery ran on a cron poller and merchants saw long delays.",
+     "task": "I led moving delivery to an event queue.", "action": "Moved delivery onto Kafka with retries.",
+     "result": "Median delivery latency went from 40s to 2s.", "fact_ids": ["F-1", "F-2"]},
+    {"id": "S-2", "title": "Pushing back on refunds launch", "question_types": ["conflict", "judgment", "influence"],
+     "situation": "Duplicate refunds were 0.3% of requests and product wanted to ship a new refunds flow.",
+     "task": "Make the risk visible and propose a safer path.", "action": "Wrote a risk write-up and proposed a two-week delay to add idempotency keys.",
+     "result": "The VP approved the delay.", "fact_ids": ["F-3", "F-6"]},
+    {"id": "S-3", "title": "Taming on-call", "question_types": ["operational excellence", "ownership"],
+     "situation": "The team was paged constantly.", "task": "Own the runbook rewrite.", "action": "Rewrote the runbook.",
+     "result": "Pages per week dropped from 14 to 5 over one quarter.", "fact_ids": ["F-4"]},
+    {"id": "S-4", "title": "Tracking API latency", "question_types": ["technical depth", "performance"],
+     "situation": "Tracking API p95 was slow.", "task": "Bring latency down.", "action": "Added read replicas and indexes.",
+     "result": "p95 went from 900ms to 180ms.", "fact_ids": ["F-7", "F-8"]}
+  ]
+}

@@ -1,0 +1,18 @@
+Senior Software Engineer, Payments Infrastructure — Orbit Commerce (fictional)
+
+About the team
+The Payments Infrastructure team builds the systems that move money for millions of merchants. We own payment orchestration, ledgering, webhooks, and the reliability of every transaction path.
+
+What you'll do
+Design and operate high-throughput, event-driven services that process payments with exactly-once semantics.
+Lead technical projects end to end, from design doc to production rollout and on-call.
+Improve reliability: reduce incidents, sharpen observability, and drive blameless postmortems.
+Partner with product and risk teams, and push back when a launch would put money movement at risk.
+Mentor engineers and raise the bar on code review and design quality.
+
+What you'll bring
+5+ years building backend systems in Python, Go, or Java.
+Experience with distributed messaging such as Kafka and with idempotent API design.
+A track record of owning production systems and improving their latency and reliability.
+Clear written communication; you can turn ambiguity into a plan.
+Experience with ledgering or double-entry accounting systems is a plus.

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grounded</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="logo">◆</span> Grounded <small>an interview coach that never invents your experience</small></div>
+  <div class="status" id="status"></div>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button data-tab="record" class="active">1 · Your record</button>
+  <button data-tab="plan">2 · Target role</button>
+  <button data-tab="practice">3 · Practice</button>
+  <button data-tab="brief">4 · Brief</button>
+</nav>
+
+<main>
+  <section id="tab-record" class="tab active">
+    <div class="row between">
+      <p class="lede">Only <b>confirmed</b> facts can back a claim. Import a résumé, review each extracted fact, then confirm or reject it.</p>
+      <div class="row gap"><button id="btn-sample" class="ghost">Load demo candidate</button><button id="btn-reset" class="ghost danger">Clear all</button></div>
+    </div>
+    <details class="card" id="import-card">
+      <summary>Import résumé with Muse Spark</summary>
+      <textarea id="resume-text" rows="8" placeholder="Paste résumé text (quotes are verified against it)…"></textarea>
+      <div class="row gap"><label class="file">or PDF <input type="file" id="resume-pdf" accept="application/pdf"></label>
+        <button id="btn-import">Extract facts &amp; stories</button></div>
+    </details>
+    <div class="grid2">
+      <div class="card"><h3>Facts <span class="muted" id="fact-count"></span></h3>
+        <ul id="facts" class="facts"></ul>
+        <form id="add-fact" class="row gap"><input id="new-fact" placeholder="Add a fact you can stand behind…"><button>Add</button></form>
+      </div>
+      <div class="card"><h3>STAR stories</h3><div id="stories"></div></div>
+    </div>
+  </section>
+
+  <section id="tab-plan" class="tab">
+    <div class="card">
+      <div class="row gap"><input id="company" placeholder="Company"><input id="role" placeholder="Role title"></div>
+      <textarea id="jd" rows="12" placeholder="Paste the full job description…"></textarea>
+      <div class="row between"><label class="check"><input type="checkbox" id="research"> Web research on the company (Muse web_search, ~$0.01)</label>
+        <button id="btn-plan">Predict questions</button></div>
+    </div>
+    <div id="plan-out"></div>
+  </section>
+
+  <section id="tab-practice" class="tab">
+    <div class="grid2 practice">
+      <div class="card"><h3>Questions</h3><ol id="qlist" class="qlist"></ol></div>
+      <div class="card">
+        <div id="qhead" class="qhead muted">Pick a question.</div>
+        <div id="story-hint"></div>
+        <textarea id="answer" rows="9" placeholder="Answer as you would out loud. Use the mic or type."></textarea>
+        <div class="row between"><div class="row gap"><button id="btn-mic" class="ghost">🎙 Speak</button><span id="timer" class="muted">0:00</span></div>
+          <button id="btn-grade">Grade my answer</button></div>
+        <div id="grade-out"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tab-brief" class="tab">
+    <div class="row between"><p class="lede">One page to read in the lobby. Built locally from your plan and practice. No extra model call.</p>
+      <div class="row gap"><button id="btn-copy" class="ghost">Copy markdown</button><a id="dl-brief" class="button ghost" download="brief.md">Download .md</a></div></div>
+    <article id="brief" class="card brief"></article>
+  </section>
+</main>
+<div id="toast" class="toast" hidden></div>
+<script src="app.js"></script>
+</body>
+</html>
