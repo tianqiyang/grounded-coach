@@ -95,3 +95,7 @@ Everything runs on `127.0.0.1`. Data lives in `data/` (git-ignored). The only ou
 - Grounding checks *attribution*, not truth: if you confirm a false fact, Grounded will faithfully defend it.
 - Claim splitting is done by the model; a claim the model fails to extract is not checked. The stray-number scan on the raw answer is the deterministic backstop.
 - Next: Muse Voice realtime transcription instead of browser speech, multi-turn follow-up drills, and spaced repetition across questions.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
