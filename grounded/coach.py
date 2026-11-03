@@ -398,7 +398,9 @@ def brief_markdown(store: Store, plan_id: int) -> str:
                 lines.append(f"  - Fix next: {a['fixes'][0]}")
             drill = [p for p in probes.get(q["id"], []) if p.get("root_id") == a["id"]]
             if drill:
-                lines.append(f"  - Follow-up drill: {len(drill)} round(s); hardest probe: “{drill[-1]['question']}”")
+                last_rate = drill[-1].get("grounding_rate")
+                rate = f", last round grounded {int(last_rate * 100)}%" if last_rate is not None else ""
+                lines.append(f"  - Follow-up drill: {len(drill)} round(s){rate}; hardest probe: “{drill[-1]['question']}”")
     gaps = [q for q in plan.get("questions", []) if q["fit"] == "none"]
     lines += ["", "## Honest gaps to prepare for"]
     lines += [f"- {q['question']} — {q.get('gap_note') or 'no matching story'}" for q in gaps] or ["- None flagged."]
