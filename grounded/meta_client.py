@@ -7,6 +7,7 @@ ledger past the cap.
 from __future__ import annotations
 
 import json
+import re
 import os
 import threading
 import time
@@ -157,9 +158,11 @@ class MetaClient:
         except (KeyError, IndexError, TypeError, json.JSONDecodeError) as e:
             raise ModelError(f"Model did not return valid JSON for {task}: {e}") from None
 
-    def web_research(self, query: str, max_out: int = 1200) -> tuple[str, dict]:
+    def web_research(self, query: str, max_out: int = 2000) -> tuple[str, dict]:
         """Responses API + web_search tool. Returns plain text summary."""
-        self.ledger.reserve(self._worst_case([query], max_out) + 5 * WEB_SEARCH_PER_QUERY)
+        # Search results are fed back as input (~16k tokens observed for 5 searches), so reserve for 30k extra.
+        inp = PRICES.get(self.model, PRICES[DEFAULT_MODEL])[0]
+        self.ledger.reserve(self._worst_case([query], max_out) + 30_000 * inp / 1_000_000 + 8 * WEB_SEARCH_PER_QUERY)
         started = time.time()
         data = self._post("/responses", {
             "model": self.model, "input": query, "tools": [{"type": "web_search"}],
@@ -171,12 +174,16 @@ class MetaClient:
         meta = {"task": "research", "model": data.get("model", self.model), "usage": usage, "web_searches": searches,
                 "cost_usd": round(cost, 6), "seconds": round(time.time() - started, 2), "ts": int(started)}
         self.ledger.record(meta)
-        text = data.get("output_text") or ""
-        if not text:
-            for item in data.get("output", []):
-                for part in item.get("content", []) or []:
-                    if part.get("type") in ("output_text", "text"):
-                        text += part.get("text", "")
+        # The model narrates between searches ("I'll research..."); keep only the final message's text.
+        messages = [item for item in data.get("output", []) if item.get("type") == "message"]
+        text = ""
+        for part in (messages[-1].get("content", []) if messages else []) or []:
+            if part.get("type") in ("output_text", "text"):
+                text += part.get("text", "")
+        text = text or data.get("output_text") or ""
+        first_bullet = re.search(r"^\s*[*\-•] ", text, re.M)
+        if first_bullet:
+            text = text[first_bullet.start():]
         return text.strip(), meta
 
 
